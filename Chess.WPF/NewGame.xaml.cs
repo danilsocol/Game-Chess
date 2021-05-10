@@ -44,5 +44,32 @@ namespace Chess.WPF
                 }
             }
         }
+        private static Button prevButton;
+        private static bool ColorGray;
+        public static void OnFigurePress(object sender, RoutedEventArgs e)
+        {
+            Button pressedButton = sender as Button;
+
+            if (prevButton != null)
+            {
+                if (ColorGray)
+                    prevButton.Background = Brushes.Gray;
+                else
+                    prevButton.Background = Brushes.White;
+            }
+            prevButton = pressedButton;
+
+            if (pressedButton.Background == Brushes.Gray)
+            {
+                ColorGray = true;
+            }
+            else
+            {
+                ColorGray = false;
+            }
+
+            pressedButton.Background = Brushes.Green;
+
+        }
     }
 }

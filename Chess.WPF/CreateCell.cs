@@ -61,7 +61,7 @@ namespace Chess.WPF
                     cell.Foreground = Brushes.Blue;
                 }
 
-                //cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
+                cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
             }
 
             cell.FontSize = cellSize / 4;
