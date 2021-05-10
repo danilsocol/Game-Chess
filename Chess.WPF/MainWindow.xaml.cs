@@ -24,5 +24,11 @@ namespace Chess.WPF
         {
             InitializeComponent();
         }
+
+        private void btnNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame taskWindow = new NewGame();
+            taskWindow.Show();
+        }
     }
 }
