@@ -30,7 +30,7 @@ namespace Chess.WPF
                 color = false;
         }
 
-        public void OutputCellData(Canvas canvas, ModelBoard board, int i, int j)
+        public void OutputCellData(Canvas canvas, ModelBoard board)
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
@@ -60,9 +60,8 @@ namespace Chess.WPF
                     cell.Foreground = Brushes.Blue;
                     cell.Foreground = Brushes.Blue;
                 }
-
-                cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
             }
+            cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
 
             cell.FontSize = cellSize / 4;
 

@@ -23,6 +23,7 @@ namespace Chess.WPF
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            player = true;
             board.PlacementOfFigureNewGame();
 
             canvas.Children.Clear();
@@ -35,7 +36,7 @@ namespace Chess.WPF
 
                     if (i != 0 && j != 0)
                     {
-                        field.OutputCellData(canvas, board, i, j);
+                        field.OutputCellData(canvas, board);
                     }
                     else if (!(i == 0 && j == 0))
                     {
@@ -46,30 +47,68 @@ namespace Chess.WPF
         }
         private static Button prevButton;
         private static bool ColorGray;
-        public static void OnFigurePress(object sender, RoutedEventArgs e)
+        private static bool IsMoving = false;
+        private static bool player;
+        public static void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
 
-            if (prevButton != null)
+            if (!IsMoving)
             {
-                if (ColorGray)
-                    prevButton.Background = Brushes.Gray;
+                if (prevButton != null)
+                {
+                    if (ColorGray)
+                        prevButton.Background = Brushes.Gray;
+                    else
+                        prevButton.Background = Brushes.White;
+                }
+
+                prevButton = pressedButton;
+
+                if (pressedButton.Background == Brushes.Gray)
+                {
+                    ColorGray = true;
+                }
                 else
-                    prevButton.Background = Brushes.White;
-            }
-            prevButton = pressedButton;
+                {
+                    ColorGray = false;
+                }
 
-            if (pressedButton.Background == Brushes.Gray)
-            {
-                ColorGray = true;
+                pressedButton.Background = Brushes.Green;
+
+                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (player)))// подумать до следующих комм
+                {
+                    IsMoving = true;
+                }
             }
+            else 
+            {
+                MakeMove(pressedButton);
+            }//
+        }
+
+        private static void MakeMove(Button pressedButton)
+        {
+            pressedButton.Content = prevButton.Content;
+            pressedButton.Foreground = prevButton.Foreground;
+            prevButton.Content = null;
+
+            if (ColorGray)
+                prevButton.Background = Brushes.Gray;
             else
-            {
-                ColorGray = false;
-            }
+                prevButton.Background = Brushes.White;
 
-            pressedButton.Background = Brushes.Green;
+            prevButton = null;
+            IsMoving = false;
 
+            SwitchPlayer(pressedButton);
+        }
+        private static void SwitchPlayer(Button pressedButton)
+        {
+            if (player == true)
+                player = false;
+            else 
+                player = true;
         }
     }
 }
