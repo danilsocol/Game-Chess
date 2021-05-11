@@ -18,6 +18,7 @@ namespace Chess.WPF
     {
         private int x, y;
         private bool color;
+        public Button cell = new Button();
 
         public CreateCell(int xXx, int yYy)
         {
@@ -34,12 +35,12 @@ namespace Chess.WPF
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
-            var cell = new Button
-            {
-                Width = cellSize,
-                Height = cellSize,
-                Name = $"x{y}y{x}"
-            };
+            // var cell = new Button
+            //   {
+            cell.Width = cellSize;
+            cell.Height = cellSize;
+            cell.Name = $"x{y}y{x}";
+            //   };
 
             if (color)
                 cell.Background = Brushes.Gray;
