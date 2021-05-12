@@ -18,6 +18,7 @@ namespace Chess.WPF
     {
         private int x, y;
         private bool color;
+        public Button cell = new Button();
 
         public CreateCell(int xXx, int yYy)
         {
@@ -30,16 +31,16 @@ namespace Chess.WPF
                 color = false;
         }
 
-        public void OutputCellData(Canvas canvas, ModelBoard board, int i, int j)
+        public void OutputCellData(Canvas canvas, ModelBoard board)
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
-            var cell = new Button
-            {
-                Width = cellSize,
-                Height = cellSize,
-                Name = $"x{y}y{x}"
-            };
+            // var cell = new Button
+            //   {
+            cell.Width = cellSize;
+            cell.Height = cellSize;
+            cell.Name = $"x{y}y{x}";
+            //   };
 
             if (color)
                 cell.Background = Brushes.Gray;
@@ -60,9 +61,8 @@ namespace Chess.WPF
                     cell.Foreground = Brushes.Blue;
                     cell.Foreground = Brushes.Blue;
                 }
-
-                //cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
             }
+            cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
 
             cell.FontSize = cellSize / 4;
 
