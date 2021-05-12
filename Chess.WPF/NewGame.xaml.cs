@@ -51,11 +51,12 @@ namespace Chess.WPF
         private static bool ColorGray;
         private static bool IsMoving = false;
         private static bool player;
+        private static bool thereIsMove;
         public static void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
 
-            if (!IsMoving && ((pressedButton.Foreground == Brushes.Red) == (player)))
+            if (!IsMoving && ((pressedButton.Foreground == Brushes.Red) == (player)) && pressedButton.Content != null)
             {
                 pressedButton.IsEnabled = false;
 
@@ -92,9 +93,11 @@ namespace Chess.WPF
             }
             else if(IsMoving)
             {
+                thereIsMove = false;
                 MakeMove(pressedButton);
                 ActivateAllButtons();
                 CloseSteps();
+             //   IsMoving = false;
             }//
         }
 
@@ -103,6 +106,7 @@ namespace Chess.WPF
             pressedButton.Content = prevButton.Content;
             pressedButton.Foreground = prevButton.Foreground;
             prevButton.Content = null;
+            prevButton.Foreground = Brushes.Black;
 
             if (ColorGray)
                 prevButton.Background = Brushes.Gray;
@@ -112,9 +116,9 @@ namespace Chess.WPF
             prevButton = null;
             IsMoving = false;
 
-            SwitchPlayer(pressedButton);
+            SwitchPlayer();
         }
-        private static void SwitchPlayer(Button pressedButton)
+        private static void SwitchPlayer()
         {
             if (player == true)
                 player = false;
@@ -139,34 +143,7 @@ namespace Chess.WPF
             switch (pressedButton.Content)
             {
                 case "P":
-                    if (InsideBorder(j + 1 * dir, i))
-                    {
-                       if(butts[j + 1 * dir, i].Content == null)
-                        {
-                            butts[j + 1 * dir, i].Background = Brushes.Yellow;
-                            butts[j + 1 * dir, i].IsEnabled = true;
-                        }
-                    }
-
-                    if (InsideBorder(j + 1 * dir, i + 1))
-                    {
-                        if (butts[j + 1 * dir, i + 1].Content != null &&(( butts[j + 1 * dir, i + 1].Foreground == Brushes.Red) != player))
-                        {
-                            butts[j + 1 * dir, i + 1].Background = Brushes.Yellow;
-                            butts[j + 1 * dir, i + 1].IsEnabled = true;
-                        }
-                    }
-
-                    if (InsideBorder(j + 1 * dir, i - 1))
-                    {
-                        if (butts[j + 1 * dir, i - 1].Content != null && ((butts[j + 1 * dir, i].Foreground == Brushes.Red) != player))
-                        {
-                            butts[j + 1 * dir, i - 1].Background = Brushes.Yellow;
-                            butts[j + 1 * dir, i - 1].IsEnabled = true;
-                        }
-                    }
-                    
-                    
+                    ShowMovePawn(j, i);
                     break;
 
                 case "R":
@@ -184,7 +161,6 @@ namespace Chess.WPF
                 case "Q":
                     ShowVerticalHorizontal(j, i);
                     ShowDiagonal(j, i);
-                    
                     break;
 
                 case "K":
@@ -192,6 +168,13 @@ namespace Chess.WPF
                     ShowDiagonal(j, i, true);
                     break;
 
+
+            }
+            if (!thereIsMove)
+            {
+                ActivateAllButtons();
+                CloseSteps();
+                IsMoving = false;
             }
         }
         public static bool InsideBorder(int j, int i)
@@ -234,8 +217,39 @@ namespace Chess.WPF
                 }
             }
         }
+        public static void ShowMovePawn(int j, int i)
+        {
+            if (InsideBorder(j + 1 * dir, i))
+            {
+                if (butts[j + 1 * dir, i].Content == null)
+                {
+                    butts[j + 1 * dir, i].Background = Brushes.Yellow;
+                    butts[j + 1 * dir, i].IsEnabled = true;
+                    thereIsMove = true;
+                }
+            }
 
-        public static void ShowHorseSteps(int j, int i)
+            if (InsideBorder(j + 1 * dir, i + 1))
+            {
+                if (butts[j + 1 * dir, i + 1].Content != null && ((butts[j + 1 * dir, i+1].Foreground == Brushes.Red) != player))
+                {
+                    butts[j + 1 * dir, i + 1].Background = Brushes.Yellow;
+                    butts[j + 1 * dir, i + 1].IsEnabled = true;
+                    thereIsMove = true;
+                }
+            }
+
+            if (InsideBorder(j + 1 * dir, i - 1))
+            {
+                if (butts[j + 1 * dir, i - 1].Content != null && ((butts[j + 1 * dir, i-1].Foreground == Brushes.Red) != player))
+                {
+                    butts[j + 1 * dir, i - 1].Background = Brushes.Yellow;
+                    butts[j + 1 * dir, i - 1].IsEnabled = true;
+                    thereIsMove = true;
+                }
+            }
+        }
+            public static void ShowHorseSteps(int j, int i)
         {
             if (InsideBorder(j - 2, i + 1))
             {
@@ -281,7 +295,7 @@ namespace Chess.WPF
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j < 8)//
+                if (j < 8)
                     j++;
                 else break;
 
@@ -297,7 +311,7 @@ namespace Chess.WPF
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j > 1)//
+                if (j > 1)
                     j--;
                 else break;
 
@@ -313,7 +327,7 @@ namespace Chess.WPF
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j > 1)//
+                if (j > 1)
                     j--;
                 else break;
 
@@ -329,7 +343,7 @@ namespace Chess.WPF
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j < 8)//
+                if (j < 8)
                     j++;
                 else break;
 
@@ -389,6 +403,7 @@ namespace Chess.WPF
             {
                 butts[j, i].Background = Brushes.Yellow;
                 butts[j, i].IsEnabled = true;
+                thereIsMove = true;
             }
             else
             {
@@ -396,6 +411,7 @@ namespace Chess.WPF
                 {
                     butts[j, i].Background = Brushes.Yellow;
                    butts[j, i].IsEnabled = true;
+                    thereIsMove = true;
                 }
                 return false;
             }
