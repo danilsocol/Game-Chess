@@ -47,17 +47,18 @@ namespace Chess.WPF
                 }
             }
         }
-        private static System.Windows.Controls.Button prevButton;
+        private static Button prevButton;
         private static bool ColorGray;
         private static bool IsMoving = false;
         private static bool player;
         public static void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
-            
 
-            if (!IsMoving)
+            if (!IsMoving && ((pressedButton.Foreground == Brushes.Red) == (player)))
             {
+                pressedButton.IsEnabled = false;
+
                 if (prevButton != null)
                 {
                     if (ColorGray)
@@ -79,6 +80,9 @@ namespace Chess.WPF
 
                 
                 pressedButton.Background = Brushes.Green;
+                DeactivateAllButtons();
+                CloseSteps();
+               // pressedButton.IsEnabled = true;
 
                 if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (player)))// подумать до следующих комм
                 {
@@ -86,9 +90,10 @@ namespace Chess.WPF
                     SetFigure(pressedButton);
                 }
             }
-            else 
+            else if(IsMoving)
             {
                 MakeMove(pressedButton);
+                ActivateAllButtons();
                 CloseSteps();
             }//
         }
@@ -138,29 +143,37 @@ namespace Chess.WPF
                     {
                        if(butts[j + 1 * dir, i].Content == null)
                         {
-                            butts[j + 1 * dir,i].Background = Brushes.Yellow;
-                           // butts[i + 1 * dir, j].Enabled = true;
+                            butts[j + 1 * dir, i].Background = Brushes.Yellow;
+                            butts[j + 1 * dir, i].IsEnabled = true;
                         }
                     }
+
                     if (InsideBorder(j + 1 * dir, i + 1))
                     {
                         if (butts[j + 1 * dir, i + 1].Content != null &&(( butts[j + 1 * dir, i + 1].Foreground == Brushes.Red) != player))
                         {
                             butts[j + 1 * dir, i + 1].Background = Brushes.Yellow;
-                        //    butts[j + 1 * dir, i + 1].Enabled = true;
+                            butts[j + 1 * dir, i + 1].IsEnabled = true;
                         }
                     }
+
                     if (InsideBorder(j + 1 * dir, i - 1))
                     {
-                        if (butts[j + 1 * dir, i - 1].Content != null && ((butts[j + 1 * dir, i + 1].Foreground == Brushes.Red) != player))
+                        if (butts[j + 1 * dir, i - 1].Content != null && ((butts[j + 1 * dir, i].Foreground == Brushes.Red) != player))
                         {
                             butts[j + 1 * dir, i - 1].Background = Brushes.Yellow;
-                         //   butts[j + 1 * dir, i - 1].Enabled = true;
+                            butts[j + 1 * dir, i - 1].IsEnabled = true;
                         }
                     }
+                    
+                    
                     break;
 
                 case "R":
+                    ShowVerticalHorizontal(j, i);
+                    break;
+
+                case "B":
                     ShowDiagonal(j, i);
                     break;
 
@@ -168,38 +181,56 @@ namespace Chess.WPF
                     ShowHorseSteps(j, i);
                     break;
 
-                case "B":
-                    ShowVerticalHorizontal(j, i);
-                    break;
-
                 case "Q":
                     ShowVerticalHorizontal(j, i);
                     ShowDiagonal(j, i);
+                    
                     break;
 
                 case "K":
-                    ShowHorseSteps(j, i);
+                    ShowVerticalHorizontal(j, i, true);
+                    ShowDiagonal(j, i, true);
                     break;
 
             }
         }
-        public static bool InsideBorder(int i, int j)
+        public static bool InsideBorder(int j, int i)
         {
-            if (i >= 8 || j >= 8 || i < 0 || j < 0)
+            if (i >= 9 || j >= 9 || i < 1 || j < 1)
                 return false;
             return true;
         }
         public static void CloseSteps()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 1; i < 9; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 1; j < 9; j++)
                 {
                     if ((i + j) % 2 == 1)
                         butts[i, j].Background = Brushes.Gray;
                     else
                         butts[i, j].Background = Brushes.White;
-                    
+                }
+            }
+        }
+        public static void DeactivateAllButtons()
+        {
+            for (int i = 1; i < 9; i++)
+            {
+                for (int j = 1; j < 9; j++)
+                {
+                    butts[i, j].IsEnabled = false;
+                }
+            }
+        }
+
+        public static void ActivateAllButtons()
+        {
+            for (int i = 1; i < 9; i++)
+            {
+                for (int j = 1; j < 9; j++)
+                {
+                    butts[i, j].IsEnabled = true;
                 }
             }
         }
@@ -243,14 +274,14 @@ namespace Chess.WPF
         public static void ShowDiagonal(int J, int I, bool isOneStep = false)
         {
             int j = I + 1;
-            for (int i = J - 1; i >= 0; i--)
+            for (int i = J - 1; i >= 1; i--)
             {
                 if (InsideBorder(i, j))
                 {
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j < 7)
+                if (j < 8)//
                     j++;
                 else break;
 
@@ -259,14 +290,14 @@ namespace Chess.WPF
             }
 
             j = I - 1;
-            for (int i = J - 1; i >= 0; i--)
+            for (int i = J - 1; i >= 1; i--)
             {
                 if (InsideBorder(i, j))
                 {
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j > 0)
+                if (j > 1)//
                     j--;
                 else break;
 
@@ -275,14 +306,14 @@ namespace Chess.WPF
             }
 
             j = I - 1;
-            for (int i = J + 1; i < 8; i++)
+            for (int i = J + 1; i < 9; i++)
             {
                 if (InsideBorder(i, j))
                 {
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j > 0)
+                if (j > 1)//
                     j--;
                 else break;
 
@@ -291,14 +322,14 @@ namespace Chess.WPF
             }
 
             j = I + 1;
-            for (int i = J + 1; i < 8; i++)
+            for (int i = J + 1; i < 9; i++)
             {
                 if (InsideBorder(i, j))
                 {
                     if (!DeterminePath(i, j))
                         break;
                 }
-                if (j < 7)
+                if (j < 8)//
                     j++;
                 else break;
 
@@ -309,7 +340,7 @@ namespace Chess.WPF
 
         public static void ShowVerticalHorizontal(int J, int I, bool isOneStep = false)
         {
-            for (int i = J + 1; i < 8; i++)
+            for (int i = J + 1; i < 9; i++)
             {
                 if (InsideBorder(i, I))
                 {
@@ -319,7 +350,7 @@ namespace Chess.WPF
                 if (isOneStep)
                     break;
             }
-            for (int i = J - 1; i >= 0; i--)
+            for (int i = J - 1; i >= 1; i--)
             {
                 if (InsideBorder(i, I))
                 {
@@ -329,7 +360,7 @@ namespace Chess.WPF
                 if (isOneStep)
                     break;
             }
-            for (int j = I + 1; j < 8; j++)
+            for (int j = I + 1; j < 9; j++)
             {
                 if (InsideBorder(J, j))
                 {
@@ -339,7 +370,7 @@ namespace Chess.WPF
                 if (isOneStep)
                     break;
             }
-            for (int j = I - 1; j >= 0; j--)
+            for (int j = I - 1; j >= 1; j--)
             {
                 if (InsideBorder(J, j))
                 {
@@ -357,14 +388,14 @@ namespace Chess.WPF
             if (butts[j, i].Content == null)
             {
                 butts[j, i].Background = Brushes.Yellow;
-              //  butts[j, i].Enabled = true;
+                butts[j, i].IsEnabled = true;
             }
             else
             {
-                if ((butts[j + 1 * dir, i + 1].Foreground == Brushes.Red) != player)
+                if ((butts[j, i].Foreground == Brushes.Red) != player)
                 {
                     butts[j, i].Background = Brushes.Yellow;
-               //     butts[j, i].Enabled = true;
+                   butts[j, i].IsEnabled = true;
                 }
                 return false;
             }
