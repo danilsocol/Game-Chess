@@ -21,15 +21,22 @@ namespace Chess.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public static bool IsNewGame;
         public MainWindow()
         {
             InitializeComponent();
         }
-
         private void btnNewGame_Click(object sender, RoutedEventArgs e)
         {
+            IsNewGame = true;
             GiveName giveName = new GiveName();
+            giveName.Show();
+            Close();
+        }
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            IsNewGame = false;
+            NewGame giveName = new NewGame();
             giveName.Show();
             Close();
         }

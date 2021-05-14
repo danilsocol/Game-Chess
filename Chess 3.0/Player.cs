@@ -6,8 +6,8 @@ namespace Chess_3._0
 {
     public class Player
     {
-        public string Name { get; }
-        public int CountPoints { get; set; } = 0;
+        public string Name { get; set; }
+        public int Score { get; set; } = 0;
 
         public Player(string name)
         {
@@ -18,22 +18,22 @@ namespace Chess_3._0
             switch (role)
             {
                 case "P":
-                    CountPoints += 10;
+                    Score += 10;
                     break;
                 case "R":
-                    CountPoints += 20;
+                    Score += 20;
                     break;
                 case "H":
-                    CountPoints += 20;
+                    Score += 20;
                     break;
                 case "B":
-                    CountPoints += 20;
+                    Score += 20;
                     break;
                 case "Q":
-                    CountPoints += 50;
+                    Score += 50;
                     break;
                 case "K":
-                    CountPoints += 100;
+                    Score += 100;
                     break;
                 default:
                     break;
