@@ -13,6 +13,8 @@ namespace Chess.WPF
         public static Button[,] butts = new Button[9, 9];
 
         public Button[,] cell = new Button[9, 9];
+
+
         public NewGame()
         {
             InitializeComponent();
@@ -20,9 +22,14 @@ namespace Chess.WPF
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            Player1 = tbPlayer1;
+            Player2 = tbPlayer2;
+            Player2.Foreground = Brushes.Red;
+
             player = true;
             board.PlacementOfFigureNewGame();
 
+            
             canvas.Children.Clear();
 
             for (int i = 0; i < 9; i++)
@@ -47,6 +54,9 @@ namespace Chess.WPF
                 }
             }
         }
+
+        private static TextBlock Player1;
+        private static TextBlock Player2 ;
         private static Button prevButton;
         private static bool ColorGray;
         private static bool IsMoving = false;
@@ -83,7 +93,6 @@ namespace Chess.WPF
                 pressedButton.Background = Brushes.Green;
                 DeactivateAllButtons();
                 CloseSteps();
-               // pressedButton.IsEnabled = true;
 
                 if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (player)))// подумать до следующих комм
                 {
@@ -97,8 +106,7 @@ namespace Chess.WPF
                 MakeMove(pressedButton);
                 ActivateAllButtons();
                 CloseSteps();
-             //   IsMoving = false;
-            }//
+            }
         }
 
         private static void MakeMove(Button pressedButton)
@@ -121,9 +129,18 @@ namespace Chess.WPF
         private static void SwitchPlayer()
         {
             if (player == true)
+            {
+                Player2.Foreground = Brushes.Black;
+                Player1.Foreground = Brushes.Red;
                 player = false;
-            else 
+            }
+            else
+            {
+
+                Player2.Foreground = Brushes.Red;
+                Player1.Foreground = Brushes.Black;
                 player = true;
+            }
         }
 
         private static int i;
