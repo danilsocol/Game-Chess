@@ -36,11 +36,9 @@ namespace Chess.WPF
                 Close();
             }
         }
-
-
         private bool CheckName()
         {
-            if (tbOnePlayer.Text.Length < 2 && tbTwoPlayer.Text.Length < 2)
+            if (tbOnePlayer.Text.Length <= 2 && tbTwoPlayer.Text.Length <= 2)
             {
                 tbErrorLenght.Visibility = Visibility.Visible;
                 return false;
@@ -50,7 +48,6 @@ namespace Chess.WPF
                 tbErrorDoubleName.Visibility = Visibility.Visible;
                 return false;
             }
-
 
             return true;
         }

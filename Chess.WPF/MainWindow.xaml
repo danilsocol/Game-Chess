@@ -19,7 +19,8 @@
 
         <Button Name="btnContinue"
         HorizontalAlignment="Center"
-        Margin="20">
+        Margin="20"
+                Click="btnContinue_Click">>
 
             Продолжить
 
