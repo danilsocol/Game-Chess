@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Chess.WPF"
         mc:Ignorable="d"
         Title="NewGame" Height="800" Width="800">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -22,7 +22,9 @@
 
         </Canvas>
 
-        <TextBlock Name="tbPlayer1" Grid.Column="2" Margin="10" HorizontalAlignment="Center" FontSize="30">Player 1</TextBlock>
-        <TextBlock x:Name="tbPlayer2" Grid.Column="2" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" Grid.Row="1">Player 2</TextBlock>
+        <TextBlock x:Name="tbPlayer1Name" Grid.Column="2" Margin="10" HorizontalAlignment="Center" FontSize="30"  Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer2Name" Grid.Column="2" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="30" Grid.Row="1" Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer1Score" Grid.Column="2" Margin="50" HorizontalAlignment="Center"  FontSize="30"  Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer2Score" Grid.Column="2" Margin="70" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontSize="30" Grid.Row="1" Text=""></TextBlock>
     </Grid>
 </Window>

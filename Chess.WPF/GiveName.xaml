@@ -20,9 +20,12 @@
 
         <TextBlock FontSize="30" VerticalAlignment="Center"> Player 1</TextBlock>
         <TextBlock Grid.Row="1" FontSize="30" VerticalAlignment="Center"> Player 2</TextBlock>
-        <TextBox Grid.Column="1" FontSize="30" Margin="0,60,10,60" Grid.ColumnSpan="2"></TextBox>
-        <TextBox Grid.Row="1" FontSize="30" Grid.Column="1" Margin="0,60,10,60" Grid.ColumnSpan="2"></TextBox>
+        <TextBox x:Name="tbOnePlayer" Grid.Column="1" FontSize="30" Margin="0,60,10,60" Grid.ColumnSpan="2"></TextBox>
+        <TextBox x:Name="tbTwoPlayer" Grid.Row="1" FontSize="30" Grid.Column="1" Margin="0,60,10,60" Grid.ColumnSpan="2"></TextBox>
 
-        <Button Grid.Row="2" Grid.Column="1" Margin="40,60,40,60">Ok</Button>
+        <TextBlock x:Name="tbErrorLenght" Grid.Row="2" Visibility="Hidden" Foreground="Red" FontSize="20" Margin="120,0,100,0" VerticalAlignment="Top" Grid.ColumnSpan="3">Слишком короткий пароль !</TextBlock>
+        <TextBlock x:Name="tbErrorDoubleName" Grid.Row="2" Visibility="Hidden" Foreground="Red" FontSize="20" Margin="150,25,100,0" VerticalAlignment="Top" Grid.ColumnSpan="3">Одинаковые пароли !</TextBlock>
+
+        <Button Grid.Row="2" Grid.Column="1" Margin="40,60,40,60" Click="btnOk_Click">Ok</Button>
     </Grid>
 </Window>

@@ -4,34 +4,35 @@ using System.Text;
 
 namespace Chess_3._0
 {
-    class Player
+    public class Player
     {
         public string Name { get; }
         public int CountPoints { get; set; } = 0;
+
         public Player(string name)
         {
             Name = name;
         }
-        public void AddPoints(Roles role)
+        public void AddPoints(string role)
         {
             switch (role)
             {
-                case Roles.P:
+                case "P":
                     CountPoints += 10;
                     break;
-                case Roles.R:
+                case "R":
                     CountPoints += 20;
                     break;
-                case Roles.H:
+                case "H":
                     CountPoints += 20;
                     break;
-                case Roles.B:
+                case "B":
                     CountPoints += 20;
                     break;
-                case Roles.Q:
+                case "Q":
                     CountPoints += 50;
                     break;
-                case Roles.K:
+                case "K":
                     CountPoints += 100;
                     break;
                 default:
