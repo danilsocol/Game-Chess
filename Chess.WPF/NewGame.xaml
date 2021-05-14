@@ -6,9 +6,25 @@
         xmlns:local="clr-namespace:Chess.WPF"
         mc:Ignorable="d"
         Title="NewGame" Height="800" Width="800">
-    <Grid ShowGridLines="True">
-        <Canvas x:Name="canvas" SizeChanged="canvas_SizeChanged" Margin="10" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Canvas x:Name="canvas" SizeChanged="canvas_SizeChanged" Margin="10" Grid.ColumnSpan="2" Grid.RowSpan="2" >
 
         </Canvas>
+
+        <TextBlock x:Name="tbPlayer1Name" Grid.Column="2" Margin="10" HorizontalAlignment="Center" FontSize="30"  Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer2Name" Grid.Column="2" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="30" Grid.Row="1" Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer1Score" Grid.Column="2" Margin="50" HorizontalAlignment="Center"  FontSize="30"  Text=""></TextBlock>
+        <TextBlock x:Name="tbPlayer2Score" Grid.Column="2" Margin="70" HorizontalAlignment="Center" VerticalAlignment="Bottom"  FontSize="30" Grid.Row="1" Text=""></TextBlock>
     </Grid>
 </Window>

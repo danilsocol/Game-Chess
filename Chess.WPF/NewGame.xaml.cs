@@ -8,11 +8,14 @@ namespace Chess.WPF
 {
     public partial class NewGame : Window
     {
+
         public static ModelBoard board = new ModelBoard();
 
         public static Button[,] butts = new Button[9, 9];
 
         public Button[,] cell = new Button[9, 9];
+
+
         public NewGame()
         {
             InitializeComponent();
@@ -20,16 +23,24 @@ namespace Chess.WPF
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.CountPoints);
+            tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.CountPoints);
+            tbPlayer1Name.Text = ModelBoard.PlayerOne.Name;
+            tbPlayer2Name.Text = ModelBoard.PlayerTwo.Name;
+
+            tbPlayer2Name.Foreground = Brushes.Red;
+
             player = true;
             board.PlacementOfFigureNewGame();
 
+            
             canvas.Children.Clear();
 
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    butts[i , j ] = new Button();
+                    butts[i , j] = new Button();
 
 
                     CreateCell field = new CreateCell(i, j);
@@ -37,6 +48,7 @@ namespace Chess.WPF
                     if (i != 0 && j != 0)
                     {
                         field.OutputCellData(canvas, board);
+                        
                     }
                     else if (!(i == 0 && j == 0))
                     {
@@ -44,17 +56,21 @@ namespace Chess.WPF
                     }
 
                     butts[i , j ] = field.cell;
+                    butts[i, j].Click += new RoutedEventHandler(OnFigurePress);
                 }
             }
         }
+
         private static Button prevButton;
         private static bool ColorGray;
         private static bool IsMoving = false;
         private static bool player;
         private static bool thereIsMove;
-        public static void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
+        public  void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
+            tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.CountPoints);
+            tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.CountPoints);
 
             if (!IsMoving && ((pressedButton.Foreground == Brushes.Red) == (player)) && pressedButton.Content != null)
             {
@@ -83,7 +99,6 @@ namespace Chess.WPF
                 pressedButton.Background = Brushes.Green;
                 DeactivateAllButtons();
                 CloseSteps();
-               // pressedButton.IsEnabled = true;
 
                 if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (player)))// подумать до следующих комм
                 {
@@ -97,16 +112,35 @@ namespace Chess.WPF
                 MakeMove(pressedButton);
                 ActivateAllButtons();
                 CloseSteps();
-             //   IsMoving = false;
-            }//
+            }
         }
 
-        private static void MakeMove(Button pressedButton)
+        private  void MakeMove(Button pressedButton)
         {
-            pressedButton.Content = prevButton.Content;
-            pressedButton.Foreground = prevButton.Foreground;
-            prevButton.Content = null;
-            prevButton.Foreground = Brushes.Black;
+            if (player == true)
+            {
+                ModelBoard.PlayerTwo.AddPoints((string)pressedButton.Content);
+            }
+            else
+            {
+                ModelBoard.PlayerOne.AddPoints((string)pressedButton.Content);
+            }
+                
+
+            if (pressedButton.Content == null)
+            {
+                pressedButton.Content = prevButton.Content;
+                pressedButton.Foreground = prevButton.Foreground;
+                prevButton.Content = null;
+                prevButton.Foreground = Brushes.Black;
+            }
+            else
+            {
+                pressedButton.Content = prevButton.Content;
+                pressedButton.Foreground = prevButton.Foreground;
+                prevButton.Content = null;
+                prevButton.Foreground = Brushes.Black;
+            }
 
             if (ColorGray)
                 prevButton.Background = Brushes.Gray;
@@ -118,18 +152,31 @@ namespace Chess.WPF
 
             SwitchPlayer();
         }
-        private static void SwitchPlayer()
+        private void SwitchPlayer()
         {
+            tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.CountPoints);
+            tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.CountPoints);
+
             if (player == true)
+            {
+                tbPlayer2Name.Foreground = Brushes.Black;
+                tbPlayer1Name.Foreground = Brushes.Red;
+
                 player = false;
-            else 
+            }
+            else
+            {
+                tbPlayer2Name.Foreground = Brushes.Red;
+                tbPlayer1Name.Foreground = Brushes.Black;
+
                 player = true;
+            }
         }
 
         private static int i;
         private static int j;
         private static int dir;
-        private static void SetFigure(Button pressedButton)
+        private void SetFigure(Button pressedButton)
         {
             i = int.Parse(Convert.ToString(pressedButton.Name[1]));
             j = int.Parse(Convert.ToString(pressedButton.Name[3]));
@@ -177,13 +224,13 @@ namespace Chess.WPF
                 IsMoving = false;
             }
         }
-        public static bool InsideBorder(int j, int i)
+        public  bool InsideBorder(int j, int i)
         {
             if (i >= 9 || j >= 9 || i < 1 || j < 1)
                 return false;
             return true;
         }
-        public static void CloseSteps()
+        public  void CloseSteps()
         {
             for (int i = 1; i < 9; i++)
             {
@@ -196,7 +243,7 @@ namespace Chess.WPF
                 }
             }
         }
-        public static void DeactivateAllButtons()
+        public  void DeactivateAllButtons()
         {
             for (int i = 1; i < 9; i++)
             {
@@ -207,7 +254,7 @@ namespace Chess.WPF
             }
         }
 
-        public static void ActivateAllButtons()
+        public  void ActivateAllButtons()
         {
             for (int i = 1; i < 9; i++)
             {
@@ -217,7 +264,7 @@ namespace Chess.WPF
                 }
             }
         }
-        public static void ShowMovePawn(int j, int i)
+        public  void ShowMovePawn(int j, int i)
         {
             if (InsideBorder(j + 1 * dir, i))
             {
@@ -249,7 +296,7 @@ namespace Chess.WPF
                 }
             }
         }
-            public static void ShowHorseSteps(int j, int i)
+            public  void ShowHorseSteps(int j, int i)
         {
             if (InsideBorder(j - 2, i + 1))
             {
@@ -285,7 +332,7 @@ namespace Chess.WPF
             }
         }
 
-        public static void ShowDiagonal(int J, int I, bool isOneStep = false)
+        public  void ShowDiagonal(int J, int I, bool isOneStep = false)
         {
             int j = I + 1;
             for (int i = J - 1; i >= 1; i--)
@@ -352,7 +399,7 @@ namespace Chess.WPF
             }
         }
 
-        public static void ShowVerticalHorizontal(int J, int I, bool isOneStep = false)
+        public  void ShowVerticalHorizontal(int J, int I, bool isOneStep = false)
         {
             for (int i = J + 1; i < 9; i++)
             {
@@ -397,7 +444,7 @@ namespace Chess.WPF
         }
 
 
-        public static bool DeterminePath(int j, int i)
+        public  bool DeterminePath(int j, int i)
         {
             if (butts[j, i].Content == null)
             {

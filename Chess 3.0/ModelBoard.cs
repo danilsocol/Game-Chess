@@ -15,7 +15,10 @@ namespace Chess_3._0
     public class ModelBoard
     {
         public Cell[,] cell = new Cell[8, 8];
-        public void PlacementOfFigureNewGame()
+        public static Player PlayerOne { get; set; }
+        public static Player PlayerTwo { get; set; }
+
+public void PlacementOfFigureNewGame()
         {
             for (int i = 0; i < 8; i++)
             {

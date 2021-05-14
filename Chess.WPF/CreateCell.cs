@@ -35,12 +35,9 @@ namespace Chess.WPF
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
-            // var cell = new Button
-            //   {
             cell.Width = cellSize;
             cell.Height = cellSize;
             cell.Name = $"x{y}y{x}";
-            //   };
 
             if (color)
                 cell.Background = Brushes.Gray;
@@ -62,7 +59,6 @@ namespace Chess.WPF
                     cell.Foreground = Brushes.Blue;
                 }
             }
-            cell.Click += new RoutedEventHandler(NewGame.OnFigurePress);
 
             cell.FontSize = cellSize / 4;
 
@@ -76,7 +72,10 @@ namespace Chess.WPF
         private static char ch = 'A';
         public void OutputCellRamk(Canvas canvas)
         {
-            var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
+            if (ch == '8')
+                ch = 'A';
+
+                var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
             var borden = new Border();
             var text = new TextBlock();

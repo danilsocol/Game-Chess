@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chess_3._0;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Chess.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -27,8 +29,9 @@ namespace Chess.WPF
 
         private void btnNewGame_Click(object sender, RoutedEventArgs e)
         {
-            NewGame taskWindow = new NewGame();
-            taskWindow.Show();
+            GiveName giveName = new GiveName();
+            giveName.Show();
+            Close();
         }
     }
 }
