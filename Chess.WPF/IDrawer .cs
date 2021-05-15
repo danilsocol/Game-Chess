@@ -14,13 +14,13 @@ using Chess_3._0;
 
 namespace Chess.WPF
 {
-    class CreateCell
+    class IDrawer
     {
         private int x, y;
         private bool color;
         public Button cell = new Button();
 
-        public CreateCell(int xXx, int yYy)
+        public IDrawer(int xXx, int yYy)
         {
             x = xXx;
             y = yYy;

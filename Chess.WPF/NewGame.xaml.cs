@@ -50,7 +50,7 @@ namespace Chess.WPF
                     butts[i , j] = new Button();
 
 
-                    CreateCell field = new CreateCell(i, j);
+                    IDrawer field = new IDrawer(i, j);
 
                     if (i != 0 && j != 0)
                     {
