@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess.Logic", "Chess 3.0\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess.WPF", "Chess.WPF\Chess.WPF.csproj", "{6B0149FB-8AA4-4E93-8555-42E3EFDAA862}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B00BF185-C8E2-479B-ABB4-0FF1227DCB56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6B0149FB-8AA4-4E93-8555-42E3EFDAA862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B0149FB-8AA4-4E93-8555-42E3EFDAA862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B0149FB-8AA4-4E93-8555-42E3EFDAA862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00BF185-C8E2-479B-ABB4-0FF1227DCB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00BF185-C8E2-479B-ABB4-0FF1227DCB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00BF185-C8E2-479B-ABB4-0FF1227DCB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00BF185-C8E2-479B-ABB4-0FF1227DCB56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
