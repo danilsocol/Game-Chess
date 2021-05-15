@@ -22,21 +22,10 @@ namespace Chess.WPF
                 ModelBoard.PlayerOne.AddPoints((string)pressedButton.Content);
             }
 
-
-           // if (pressedButton.Content == null)
-          //  {
-                pressedButton.Content = NewGame.prevButton.Content;
-                pressedButton.Foreground = NewGame.prevButton.Foreground;
-                NewGame.prevButton.Content = null;
-                NewGame.prevButton.Foreground = Brushes.Black;
-            //}
-            //else
-            //{
-            //    pressedButton.Content = NewGame.prevButton.Content;
-            //    pressedButton.Foreground = NewGame.prevButton.Foreground;
-            //    NewGame.prevButton.Content = null;
-            //    NewGame.prevButton.Foreground = Brushes.Black;
-            //}
+            pressedButton.Content = NewGame.prevButton.Content;
+            pressedButton.Foreground = NewGame.prevButton.Foreground;
+            NewGame.prevButton.Content = null;
+            NewGame.prevButton.Foreground = Brushes.Black;
 
             if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
@@ -46,16 +35,11 @@ namespace Chess.WPF
             NewGame.prevButton = null;
             NewGame.isMoving = false;
         }
-      
-
-        private static int i;
-        private static int j;
-        private static int dir;
         public static void SetFigure(Button pressedButton)
         {
-            i = int.Parse(Convert.ToString(pressedButton.Name[1]));
-            j = int.Parse(Convert.ToString(pressedButton.Name[3]));
-
+           int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
+           int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
+            int dir;
 
             if (NewGame.MovePlayerOne == true)
                 dir = -1;

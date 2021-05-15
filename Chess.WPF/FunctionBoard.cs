@@ -22,7 +22,6 @@ namespace Chess.WPF
             }
         }
 
-
         public static void DeactivateAllButtons()
         {
             for (int i = 1; i < 9; i++)

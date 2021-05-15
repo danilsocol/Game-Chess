@@ -10,8 +10,8 @@ namespace Chess.WPF
     public partial class NewGame : Window
     {
 
-        private static ModelBoard board = new ModelBoard();
-        public static Button[,] butts = new Button[9, 9];
+        private static ModelBoard board { get; } = new ModelBoard();
+        public static Button[,] butts { get; } = new Button[9, 9];
 
         public NewGame()
         {
@@ -22,7 +22,6 @@ namespace Chess.WPF
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
             if (MainWindow.IsNewGame)
             {
                 board.PlacementOfFigureNewGame();
@@ -69,11 +68,11 @@ namespace Chess.WPF
             }
         }
 
-        public static Button prevButton;
-        public static bool colorCellGray;
-        public static bool isMoving = false;
-        public static bool MovePlayerOne = true;
-        public static bool thereIsMove;
+        public static Button prevButton { get; set; }
+        public static bool colorCellGray { get; set; }
+        public static bool isMoving { get; set; } = false;
+        public static bool MovePlayerOne { get; set; } = true;
+        public static bool thereIsMove { get; set; }
 
         private void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chess_3._0;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
@@ -13,7 +14,7 @@ namespace Chess.WPF
                 return false;
             return true;
         }
-        
+
         public static void ShowMovePawn(int j, int i, int dir)
         {
             if (InsideBorder(j + 1 * dir, i))
@@ -46,6 +47,7 @@ namespace Chess.WPF
                 }
             }
         }
+
         public static void ShowHorseSteps(int j, int i)
         {
             if (InsideBorder(j - 2, i + 1))
@@ -148,7 +150,6 @@ namespace Chess.WPF
                     break;
             }
         }
-
         public static void ShowVerticalHorizontal(int J, int I, bool isOneStep = false)
         {
             for (int i = J + 1; i < 9; i++)
@@ -192,8 +193,6 @@ namespace Chess.WPF
                     break;
             }
         }
-
-
         public static bool DeterminePath(int j, int i)
         {
             if (NewGame.butts[j, i].Content == null)

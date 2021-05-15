@@ -18,7 +18,7 @@ namespace Chess.WPF
 {
     public partial class MainWindow : Window
     {
-        public static bool IsNewGame;
+        public static bool IsNewGame { get; set; }
         public MainWindow()
         {
             InitializeComponent();
