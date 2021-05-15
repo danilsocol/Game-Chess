@@ -6,9 +6,9 @@ using System.Windows.Media;
 
 namespace Chess.WPF
 {
-    class AvailableMoves
+    public class AvailableMoves
     {
-        private static bool InsideBorder(int j, int i)
+        public static bool InsideBorder(int j, int i)
         {
             if (i >= 9 || j >= 9 || i < 1 || j < 1)
                 return false;
