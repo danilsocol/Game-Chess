@@ -15,6 +15,8 @@ namespace Chess.WPF
 {
     public partial class GiveName : Window
     {
+        private static bool Next = true;
+
         public GiveName()
         {
             InitializeComponent();
@@ -27,9 +29,9 @@ namespace Chess.WPF
 
             if (CheckName())
             {
+                Next = false; 
                 ModelBoard.PlayerOne = new Player(tbOnePlayer.Text);
                 ModelBoard.PlayerTwo = new Player(tbTwoPlayer.Text);
-
 
                 NewGame newGame = new NewGame();
                 newGame.Show();
@@ -51,5 +53,6 @@ namespace Chess.WPF
 
             return true;
         }
+
     }
 }

@@ -17,16 +17,16 @@
             CHESS
         </TextBlock>
 
-        <Button Name="btnContinue"
+        <Button x:Name="btnContinue"
         HorizontalAlignment="Center"
         Margin="20"
-                Click="btnContinue_Click">>
+                Click="btnContinue_Click">
 
             Продолжить
 
         </Button>
 
-        <Button Name="btnNewGame"
+        <Button x:Name="btnNewGame"
         HorizontalAlignment="Center"
         Margin="20"
             Click="btnNewGame_Click">
@@ -34,19 +34,10 @@
             Начать новую игру
 
         </Button>
-
-        <Button Name="btnRating"
+        
+        <Button x:Name="btnOut"
         HorizontalAlignment="Center"
-
-        Margin="20">
-
-            Рейтинг
-
-        </Button>
-
-        <Button Name="btnOut"
-        HorizontalAlignment="Center"
-        Margin="20">
+        Margin="20"  Click="btnOut_Click">
             Выход
 
         </Button>

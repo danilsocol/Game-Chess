@@ -31,7 +31,7 @@ namespace Chess.WPF
                 color = false;
         }
 
-        public void OutputCellData(Canvas canvas, ModelBoard board)
+        public void OutputCellBoard(Canvas canvas, ModelBoard board)
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
@@ -68,14 +68,10 @@ namespace Chess.WPF
             Canvas.SetLeft(cell, y * cellSize);
         }
 
-
         private static char ch = 'A';
         public void OutputCellRamk(Canvas canvas)
         {
-            if (ch == '8')
-                ch = 'A';
-
-                var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
+            var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
             var borden = new Border();
             var text = new TextBlock();
@@ -98,6 +94,9 @@ namespace Chess.WPF
 
             Canvas.SetTop(borden, x * cellSize);
             Canvas.SetLeft(borden, y * cellSize);
+
+            if (ch == '9')
+                ch = 'A';
         }
     }
 }

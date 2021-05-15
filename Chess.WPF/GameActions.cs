@@ -13,7 +13,7 @@ namespace Chess.WPF
     {
         public static void MakeMove(Button pressedButton)
         {
-            if (NewGame.player == true)
+            if (NewGame.MovePlayerOne == true)
             {
                 ModelBoard.PlayerTwo.AddPoints((string)pressedButton.Content);
             }
@@ -23,28 +23,28 @@ namespace Chess.WPF
             }
 
 
-            if (pressedButton.Content == null)
-            {
+           // if (pressedButton.Content == null)
+          //  {
                 pressedButton.Content = NewGame.prevButton.Content;
                 pressedButton.Foreground = NewGame.prevButton.Foreground;
                 NewGame.prevButton.Content = null;
                 NewGame.prevButton.Foreground = Brushes.Black;
-            }
-            else
-            {
-                pressedButton.Content = NewGame.prevButton.Content;
-                pressedButton.Foreground = NewGame.prevButton.Foreground;
-                NewGame.prevButton.Content = null;
-                NewGame.prevButton.Foreground = Brushes.Black;
-            }
+            //}
+            //else
+            //{
+            //    pressedButton.Content = NewGame.prevButton.Content;
+            //    pressedButton.Foreground = NewGame.prevButton.Foreground;
+            //    NewGame.prevButton.Content = null;
+            //    NewGame.prevButton.Foreground = Brushes.Black;
+            //}
 
-            if (NewGame.ColorGray)
+            if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
             else
                 NewGame.prevButton.Background = Brushes.White;
 
             NewGame.prevButton = null;
-            NewGame.IsMoving = false;
+            NewGame.isMoving = false;
         }
       
 
@@ -57,7 +57,7 @@ namespace Chess.WPF
             j = int.Parse(Convert.ToString(pressedButton.Name[3]));
 
 
-            if (NewGame.player == true)
+            if (NewGame.MovePlayerOne == true)
                 dir = -1;
             else
                 dir = 1;
@@ -96,7 +96,7 @@ namespace Chess.WPF
             {
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();
-                NewGame.IsMoving = false;
+                NewGame.isMoving = false;
             }
         }
 

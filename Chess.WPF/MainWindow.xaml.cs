@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace Chess.WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public static bool IsNewGame;
@@ -38,6 +35,10 @@ namespace Chess.WPF
             IsNewGame = false;
             NewGame giveName = new NewGame();
             giveName.Show();
+            Close();
+        }
+        private void btnOut_Click(object sender, RoutedEventArgs e)
+        {
             Close();
         }
     }

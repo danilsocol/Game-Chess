@@ -10,15 +10,14 @@ namespace Chess.WPF
     public partial class NewGame : Window
     {
 
-        public static ModelBoard board = new ModelBoard();
-
+        private static ModelBoard board = new ModelBoard();
         public static Button[,] butts = new Button[9, 9];
 
-        public Button[,] cell = new Button[9, 9];
-         
         public NewGame()
         {
             InitializeComponent();
+
+            this.Closing += NewGame_Closing;
         }
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -56,7 +55,7 @@ namespace Chess.WPF
 
                     if (i != 0 && j != 0)
                     {
-                        field.OutputCellData(canvas, board);
+                        field.OutputCellBoard(canvas, board);
                         
                     }
                     else if (!(i == 0 && j == 0))
@@ -71,24 +70,24 @@ namespace Chess.WPF
         }
 
         public static Button prevButton;
-        public static bool ColorGray;
-        public static bool IsMoving = false;
-        public static bool player = true;
+        public static bool colorCellGray;
+        public static bool isMoving = false;
+        public static bool MovePlayerOne = true;
         public static bool thereIsMove;
 
-        public void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
+        private void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
             tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.Score);
 
-            if (!IsMoving && ((pressedButton.Foreground == Brushes.Red) == (player)) && pressedButton.Content != null)
+            if (!isMoving && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)) && pressedButton.Content != null)
             {
                 pressedButton.IsEnabled = false;
 
                 if (prevButton != null)
                 {
-                    if (ColorGray)
+                    if (colorCellGray)
                         prevButton.Background = Brushes.Gray;
                     else
                         prevButton.Background = Brushes.White;
@@ -98,11 +97,11 @@ namespace Chess.WPF
 
                 if (pressedButton.Background == Brushes.Gray)
                 {
-                    ColorGray = true;
+                    colorCellGray = true;
                 }
                 else
                 {
-                    ColorGray = false;
+                    colorCellGray = false;
                 }
 
 
@@ -110,13 +109,13 @@ namespace Chess.WPF
                 FunctionBoard.DeactivateAllButtons();
                 FunctionBoard.CloseSteps();
 
-                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (player)))// подумать до следующих комм
+                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)))// подумать до следующих комм
                 {
-                    IsMoving = true;
+                    isMoving = true;
                     GameActions.SetFigure(pressedButton);
                 }
             }
-            else if (IsMoving)
+            else if (isMoving)
             {
                 thereIsMove = false;
                 GameActions.MakeMove(pressedButton);
@@ -131,20 +130,26 @@ namespace Chess.WPF
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
             tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.Score);
 
-            if (player == true)
+            if (MovePlayerOne == true)
             {
                 tbPlayer2Name.Foreground = Brushes.Black;
                 tbPlayer1Name.Foreground = Brushes.Red;
 
-                player = false;
+                MovePlayerOne = false;
             }
             else
             {
                 tbPlayer2Name.Foreground = Brushes.Red;
                 tbPlayer1Name.Foreground = Brushes.Black;
 
-                player = true;
+                MovePlayerOne = true;
             }
+        }
+
+        private void NewGame_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var menu = new MainWindow();
+            menu.Show();
         }
     }
 }
