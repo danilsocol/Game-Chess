@@ -111,13 +111,13 @@ namespace Chess.WPF
                 if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)))// подумать до следующих комм
                 {
                     isMoving = true;
-                    GameActions.SetFigure(pressedButton);
+                    GameActions.SetFigure(pressedButton, board);
                 }
             }
             else if (isMoving)
             {
                 thereIsMove = false;
-                GameActions.MakeMove(pressedButton);
+                GameActions.MakeMove(pressedButton, board);
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();
                 FunctionBoard.SaveField($"{ tbPlayer1Name.Text} { tbPlayer1Score.Text} { tbPlayer2Name.Text} { tbPlayer2Score.Text}");

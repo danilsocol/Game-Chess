@@ -11,7 +11,7 @@ namespace Chess.WPF
 {
     class GameActions
     {
-        public static void MakeMove(Button pressedButton)
+        public static void MakeMove(Button pressedButton, ModelBoard board)
         {
             if (NewGame.MovePlayerOne == true)
             {
@@ -35,10 +35,12 @@ namespace Chess.WPF
             NewGame.prevButton = null;
             NewGame.isMoving = false;
         }
-        public static void SetFigure(Button pressedButton)
+        public static void SetFigure(Button pressedButton, ModelBoard board)
         {
-           int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
-           int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
+            List<string> listCorrectMove = new List<string>();
+
+            int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
+            int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
             int dir;
 
             if (NewGame.MovePlayerOne == true)
@@ -61,7 +63,8 @@ namespace Chess.WPF
                     break;
 
                 case "H":
-                    AvailableMoves.ShowHorseSteps(j, i);
+                    CorrectMoves.ShowHorseSteps(j - 1, i + 1, board, listCorrectMove);
+                 //   AvailableMoves.ShowHorseSteps(j, i);
                     break;
 
                 case "Q":
@@ -81,6 +84,13 @@ namespace Chess.WPF
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();
                 NewGame.isMoving = false;
+            }
+
+            for (int k = 0; k < listCorrectMove.Count; k++)
+            {
+                NewGame.butts[listCorrectMove[k][1]-47,listCorrectMove[k][0]-47].Background = Brushes.Yellow;
+                NewGame.butts[listCorrectMove[k][1]-47, listCorrectMove[k][0]-47].IsEnabled = true;
+                NewGame.thereIsMove = true;
             }
         }
 
