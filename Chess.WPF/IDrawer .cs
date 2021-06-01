@@ -35,9 +35,10 @@ namespace Chess.WPF
         {
             var cellSize = (canvas.ActualHeight + canvas.ActualWidth) / 20;
 
+            cell.Name = $"y{y}x{x}";
+
             cell.Width = cellSize;
             cell.Height = cellSize;
-            cell.Name = $"x{y}y{x}";
 
             if (color)
                 cell.Background = Brushes.Gray;

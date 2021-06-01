@@ -19,6 +19,8 @@ namespace Chess_3._0
         public static Player PlayerOne { get; set; }
         public static Player PlayerTwo { get; set; }
 
+        public  bool MovePlayerOne { get; set; } = true;
+
         public void PlacementOfFigureNewGame()
         {
             for (int i = 0; i < 8; i++)
@@ -115,5 +117,6 @@ namespace Chess_3._0
                 }
             }
         }
+
     }
 }
