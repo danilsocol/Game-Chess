@@ -88,7 +88,13 @@ namespace Chess.Desktop
                     }
                     else
                     {
+                        if (cell[x, y].Color == Colors.Black)
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        else
+                            Console.ForegroundColor = ConsoleColor.Blue;
+
                         Console.Write($"{Convert.ToString(cell[x, y].Role)}");
+                        Console.ForegroundColor = ConsoleColor.Gray;
                     }
 
                     Console.Write(" │");
@@ -124,7 +130,13 @@ namespace Chess.Desktop
 
             Console.BackgroundColor = ConsoleColor.Black;
             if (cell[pastSelectCell[0], pastSelectCell[1]].Role != Roles.V)
+            {
+                if (cell[pastSelectCell[0], pastSelectCell[1]].Color == Colors.Black)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                else
+                    Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write($"{cell[pastSelectCell[0], pastSelectCell[1]].Role}");
+            }
             else
                 Console.Write(" ");
             Console.ResetColor();

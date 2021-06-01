@@ -37,6 +37,7 @@ namespace Chess.Desktop
                 SelectCell();
 
                 MakeMove(movementOfTheFigures, board.cell);
+                
             }
         }
 
@@ -101,70 +102,88 @@ namespace Chess.Desktop
 
         public static bool CheckCorrectOfTheMove(ModelBoard board, string start, string end)
         {
-
-            bool isCorrect = false;
+            List<string> listCorrectMove = new List<string>();
+            int dir;
+            if (board.MovePlayerOne == true)
+                dir = 1;
+            else
+                dir = -1;
 
             switch (board.cell[start[0] - 48, start[1] - 48].Role)
             {
                 case Roles.H:
-                    isCorrect = IsKnightCorrect(start, end);
+                    CorrectMoves.ShowHorseSteps( start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
                     break;
 
                 case Roles.P:
-                    isCorrect = IsPawnCorrect(start, end);
+                     CorrectMoves.ShowMovePawn( start[0] - 48 + 1, start[1] - 48 + 1, dir, board, listCorrectMove);
                     break;
 
                 case Roles.R:
-                    isCorrect = IsRookCorrect(start, end);
+                   CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
                     break;
 
                 case Roles.Q:
-                    isCorrect = IsQueenCorrect(start, end);
+                    CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
+                    CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
                     break;
 
                 case Roles.K:
-                    isCorrect = IsKingCorrect(start, end);
+                    CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove, true);
+                    CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove,true);
                     break;
 
                 case Roles.B:
-                    isCorrect = IsBishopCorrect(start, end);
+                     CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
                     break;
             }
-            return isCorrect;
+
+            for(int i =0; i < listCorrectMove.Count; i++)
+            {
+                if (end == listCorrectMove[i])
+                {
+                    board.MovePlayerOne = !board.MovePlayerOne;
+                    return true;
+                }
+                    
+            }
+
+
+            return false;
         }
 
-        public static bool IsKnightCorrect(string start, string end)
-        {
-            int dx = Math.Abs(end[0] - start[0]);
-            int dy = Math.Abs(end[1] - start[1]);
+        //public static bool IsKnightCorrect(string start, string end)
+        //{
+        //    int dx = Math.Abs(end[0] - start[0]);
+        //    int dy = Math.Abs(end[1] - start[1]);
 
-            return dx + dy == 3 && dx * dy == 2;
-        }
+        //    return dx + dy == 3 && dx * dy == 2;
+        //}
 
-        public static bool IsPawnCorrect(string start, string end)
-        {
-            return (end[0] - start[0] == 0 && end[1] - start[1] == 1);
-        }
+        //public static bool IsPawnCorrect(string start, string end)
+        //{
+        //    return (end[0] - start[0] == 0 && end[1] - start[1] == 1);
+        //}
 
-        public static bool IsRookCorrect(string start, string end)
-        {
-            return (end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
-        }
+        //public static bool IsRookCorrect(string start, string end)
+        //{
+        //    return (end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
+        //}
 
-        public static bool IsBishopCorrect(string start, string end)
-        {
-            return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]));
-        }
+        //public static bool IsBishopCorrect(string start, string end)
+        //{
+        //    return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]));
+        //}
 
-        public static bool IsQueenCorrect(string start, string end)
-        {
-            return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]) || end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
-        }
+        //public static bool IsQueenCorrect(string start, string end)
+        //{
+        //    return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]) || end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
+        //}
 
-        public static bool IsKingCorrect(string start, string end)
-        {
-            return (Math.Abs(start[0] - end[0]) <= 1 && Math.Abs(start[1] - end[1]) <= 1);
-        }
+        //public static bool IsKingCorrect(string start, string end)
+        //{
+        //    return (Math.Abs(start[0] - end[0]) <= 1 && Math.Abs(start[1] - end[1]) <= 1);
+        //}
 
         public static bool RecognitionFigureInCell(Cell[,] cell, string start)
         {
