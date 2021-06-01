@@ -57,12 +57,14 @@ namespace Chess.Desktop
             int EndHorizontalCood = end[1] - 48;
             int EndVerticalCoord = end[0] - 48;
 
+            
             if (isCorrect)
             {
-                Roles pickFigure = board.cell[StartVerticalCoord, StartHorizontalCood].Role ;
+                board.cell[EndVerticalCoord, EndHorizontalCood].Color = board.cell[StartVerticalCoord, StartHorizontalCood].Color;
+                board.cell[EndVerticalCoord, EndHorizontalCood].Role = board.cell[StartVerticalCoord, StartHorizontalCood].Role;
                 board.cell[StartVerticalCoord, StartHorizontalCood].Role = Roles.V;
-                board.cell[StartVerticalCoord, StartHorizontalCood].Role = pickFigure;
-            }
+                board.cell[StartVerticalCoord, StartHorizontalCood].Color = Colors.V;
+            }   
             else
                 WorkConsole.Error();
         }
@@ -80,7 +82,7 @@ namespace Chess.Desktop
                 if (key == ConsoleKey.RightArrow && selectCell[0] < 7) selectCell[0]++;
                 if (key == ConsoleKey.LeftArrow && selectCell[0] > 0) selectCell[0]--;
 
-                //WorkConsole.WriteChoiceCell(selectCell, pastSelectCell);
+                WorkConsole.WriteChoiceCell(selectCell, pastSelectCell, board.cell);
 
 
                 if (key == ConsoleKey.Enter && !IsTheFigureSelected)
@@ -89,11 +91,11 @@ namespace Chess.Desktop
                     break;
                 }
 
-                //if (key == ConsoleKey.Enter && IsTheFigureSelected && RecognitionFigureInCell(cell, $"{selectCell[0]}{selectCell[1]}"))
-                //{
-                //    movementOfTheFigures[0] = $"{selectCell[0]}{selectCell[1]}";
-                //    IsTheFigureSelected = false;
-                //}
+                if (key == ConsoleKey.Enter && IsTheFigureSelected && RecognitionFigureInCell(board.cell, $"{selectCell[0]}{selectCell[1]}"))
+                {
+                    movementOfTheFigures[0] = $"{selectCell[0]}{selectCell[1]}";
+                    IsTheFigureSelected = false;
+                }
             }
         }
 

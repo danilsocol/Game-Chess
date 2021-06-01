@@ -115,5 +115,10 @@ namespace Chess_3._0
                 }
             }
         }
+
+        private void MakeMove()
+        {
+
+        }
     }
 }
