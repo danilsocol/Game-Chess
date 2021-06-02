@@ -11,9 +11,9 @@ namespace Chess.WPF
 {
     class GameActions
     {
-        public static void MakeMove(Button pressedButton)
+        public static void MakeMove(Button pressedButton, ModelBoard board)
         {
-            if (NewGame.MovePlayerOne == true)
+            if (board.MovePlayerOne == true)
             {
                 ModelBoard.PlayerTwo.AddPoints((string)pressedButton.Content);
             }
@@ -22,10 +22,15 @@ namespace Chess.WPF
                 ModelBoard.PlayerOne.AddPoints((string)pressedButton.Content);
             }
 
+            board.cell[pressedButton.Name[1]-49, pressedButton.Name[3] - 49].Color = board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Color;
+            board.cell[pressedButton.Name[1] - 49, pressedButton.Name[3] - 49].Role = board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Role;
+            board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Role = Roles.V;
+            board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Color = Chess_3._0.Colors.V;
             pressedButton.Content = NewGame.prevButton.Content;
             pressedButton.Foreground = NewGame.prevButton.Foreground;
             NewGame.prevButton.Content = null;
             NewGame.prevButton.Foreground = Brushes.Black;
+        //    board.MovePlayerOne = !board.MovePlayerOne;
 
             if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
@@ -35,46 +40,56 @@ namespace Chess.WPF
             NewGame.prevButton = null;
             NewGame.isMoving = false;
         }
-        public static void SetFigure(Button pressedButton)
+        public static void PaintCorrectMove(Button pressedButton, ModelBoard board)
         {
-           int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
-           int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
-            int dir;
+            List<string> listCorrectMove = new List<string>();
 
-            if (NewGame.MovePlayerOne == true)
-                dir = -1;
-            else
-                dir = 1;
+            int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
+            int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
 
-            switch (pressedButton.Content)
+
+            CorrectMoves.SetFigure(i, j, board, listCorrectMove, Convert.ToString(pressedButton.Content));
+
+            //if (board.MovePlayerOne == true)
+            //    dir = -1;
+            //else
+            //    dir = 1;
+
+            //switch (pressedButton.Content)
+            //{
+            //    case "P":
+            //        CorrectMoves.ShowMovePawn(i, j, dir, board, listCorrectMove);
+            //        break;
+
+            //    case "R":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "B":
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "H":
+            //        CorrectMoves.ShowHorseSteps(i , j, board, listCorrectMove);
+            //        break;
+
+            //    case "Q":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "K":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove, true);
+            //        break;
+
+
+            //}
+            for (int k = 0; k < listCorrectMove.Count; k++)
             {
-                case "P":
-                    AvailableMoves.ShowMovePawn(j, i, dir);
-                    break;
-
-                case "R":
-                    AvailableMoves.ShowVerticalHorizontal(j, i);
-                    break;
-
-                case "B":
-                    AvailableMoves.ShowDiagonal(j, i);
-                    break;
-
-                case "H":
-                    AvailableMoves.ShowHorseSteps(j, i);
-                    break;
-
-                case "Q":
-                    AvailableMoves.ShowVerticalHorizontal(j, i);
-                    AvailableMoves.ShowDiagonal(j, i);
-                    break;
-
-                case "K":
-                    AvailableMoves.ShowVerticalHorizontal(j, i, true);
-                    AvailableMoves.ShowDiagonal(j, i, true);
-                    break;
-
-
+                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].Background = Brushes.Yellow;
+                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].IsEnabled = true;
+                NewGame.thereIsMove = true;
             }
             if (!NewGame.thereIsMove)
             {
@@ -82,6 +97,8 @@ namespace Chess.WPF
                 FunctionBoard.CloseSteps();
                 NewGame.isMoving = false;
             }
+
+            
         }
 
     }

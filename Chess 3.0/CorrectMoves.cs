@@ -1,11 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Chess_3._0
 {
     public class CorrectMoves
     {
+        public static void SetFigure(int i, int j,ModelBoard board,List<string> listCorrectMove, string pressedButton)
+        {
+            int dir;
+
+            if (board.MovePlayerOne == true)
+                dir = -1;
+            else
+                dir = 1;
+
+            switch (pressedButton)
+            {
+                case "P":
+                    ShowMovePawn(i, j, dir, board, listCorrectMove);
+                    break;
+
+                case "R":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove);
+                    break;
+
+                case "B":
+                    ShowDiagonal(i, j, board, listCorrectMove);
+                    break;
+
+                case "H":
+                    ShowHorseSteps(i, j, board, listCorrectMove);
+                    break;
+
+                case "Q":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove);
+                    ShowDiagonal(i, j, board, listCorrectMove);
+                    break;
+
+                case "K":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
+                    ShowDiagonal(i, j, board, listCorrectMove, true);
+                    break;
+
+
+            }
+        }
+
         public static bool InsideBorder(int j, int i)
         {
             if (i >= 9 || j >= 9 || i < 1 || j < 1)
@@ -30,7 +70,7 @@ namespace Chess_3._0
 
             if (InsideBorder(j+1, i + 1 * dir))
             {
-                if (board.cell[j , i + 1 * dir-1].Role != Roles.V && ((board.cell[j, i + 1 * dir - 1].Color == Colors.Black) != board.MovePlayerOne))
+                if (board.cell[j , i + 1 * dir-1].Role != Roles.V && ((board.cell[j, i + 1 * dir - 1].Color == Colors.White) != board.MovePlayerOne))
                 {
                     CorrectMove.Add($"{j }{ i + 1 * dir - 1}");
                     //NewGame.butts[j + 1 * dir, i + 1].Background = Brushes.Yellow;
@@ -41,7 +81,7 @@ namespace Chess_3._0
 
             if (InsideBorder(j -1, i + 1 * dir))
             {
-                if (board.cell[j - 2, i + 1 * dir-1].Role != Roles.V && ((board.cell[j - 2, i + 1 * dir - 1].Color == Colors.Black) != board.MovePlayerOne))
+                if (board.cell[j - 2, i + 1 * dir-1].Role != Roles.V && ((board.cell[j - 2, i + 1 * dir - 1].Color == Colors.White) != board.MovePlayerOne))
                 {
                     CorrectMove.Add($"{j - 2}{i + 1 * dir - 1}");
                     //NewGame.butts[j + 1 * dir, i - 1].Background = Brushes.Yellow;
@@ -200,9 +240,32 @@ namespace Chess_3._0
 
             
             }
-        public static bool DeterminePathL(int j, int i, ModelBoard board,List<string> CorrectMove)
+        //public static bool DeterminePathL(int j, int i, ModelBoard board,List<string> CorrectMove)
+        //{
+        //    if (board.cell[j - 1, i - 1].Role == Roles.V && ((board.cell[j - 1, i - 1].Color == Colors.Black) != board.MovePlayerOne))
+        //    {
+        //        CorrectMove.Add($"{j - 1}{i - 1}");
+        //        //NewGame.butts[j, i].Background = Brushes.Yellow;
+        //        //NewGame.butts[j, i].IsEnabled = true;
+        //        //NewGame.thereIsMove = true;
+        //    }
+        //    else
+        //    {
+        //        if ((board.cell[j-1, i-1].Color == Colors.Black) == board.MovePlayerOne)
+        //        {
+        //            CorrectMove.Add($"{j - 1}{i - 1}");
+        //            //NewGame.butts[j, i].Background = Brushes.Yellow;
+        //            //NewGame.butts[j, i].IsEnabled = true;
+        //            //NewGame.thereIsMove = true;
+        //        }
+        //        return false;
+        //    }
+        //    return true;
+        //}
+
+        public static bool DeterminePathL(int j, int i, ModelBoard board, List<string> CorrectMove)
         {
-            if (board.cell[j - 1, i - 1].Role == Roles.V && ((board.cell[j - 1, i - 1].Color == Colors.Black) != board.MovePlayerOne))
+            if (board.cell[j - 1, i - 1].Role == Roles.V )
             {
                 CorrectMove.Add($"{j - 1}{i - 1}");
                 //NewGame.butts[j, i].Background = Brushes.Yellow;
@@ -211,12 +274,13 @@ namespace Chess_3._0
             }
             else
             {
-                //if ((board.cell[j, i].Color == Colors.Black) != NewGame.MovePlayerOne)
-                //{
-                //    NewGame.butts[j, i].Background = Brushes.Yellow;
-                //    NewGame.butts[j, i].IsEnabled = true;
-                //    NewGame.thereIsMove = true;
-                //}
+                if ((board.cell[j - 1, i - 1].Color == Colors.White) != board.MovePlayerOne)
+                {
+                    CorrectMove.Add($"{j - 1}{i - 1}");
+                    //NewGame.butts[j, i].Background = Brushes.Yellow;
+                    //NewGame.butts[j, i].IsEnabled = true;
+                    //NewGame.thereIsMove = true;
+                }
                 return false;
             }
             return true;

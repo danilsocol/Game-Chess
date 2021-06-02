@@ -103,42 +103,10 @@ namespace Chess.Desktop
         public static bool CheckCorrectOfTheMove(ModelBoard board, string start, string end)
         {
             List<string> listCorrectMove = new List<string>();
-            int dir;
-            if (board.MovePlayerOne == true)
-                dir = 1;
-            else
-                dir = -1;
 
-            switch (board.cell[start[0] - 48, start[1] - 48].Role)
-            {
-                case Roles.H:
-                    CorrectMoves.ShowHorseSteps( start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
-                    break;
-
-                case Roles.P:
-                     CorrectMoves.ShowMovePawn( start[0] - 48 + 1, start[1] - 48 + 1, dir, board, listCorrectMove);
-                    break;
-
-                case Roles.R:
-                   CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
-                    break;
-
-                case Roles.Q:
-                    CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
-                    CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
-                    break;
-
-                case Roles.K:
-                    CorrectMoves.ShowVerticalHorizontal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove, true);
-                    CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove,true);
-                    break;
-
-                case Roles.B:
-                     CorrectMoves.ShowDiagonal(start[0] - 48 + 1, start[1] - 48 + 1, board, listCorrectMove);
-                    break;
-            }
-
-            for(int i =0; i < listCorrectMove.Count; i++)
+            CorrectMoves.SetFigure(start[0] - 47, start[1] - 47, board, listCorrectMove, Convert.ToString(board.cell[start[0] - 48, start[1] - 48].Role));
+            
+            for (int i =0; i < listCorrectMove.Count; i++)
             {
                 if (end == listCorrectMove[i])
                 {
@@ -187,7 +155,7 @@ namespace Chess.Desktop
 
         public static bool RecognitionFigureInCell(Cell[,] cell, string start)
         {
-            if ((cell[start[0] - 48, start[1] - 48]).Role == Roles.V)
+            if ((cell[start[0] - 48, start[1] - 48]).Role == Roles.V || (cell[start[0] - 48, start[1] - 48].Color == Colors.White) != board.MovePlayerOne)
                 return false;
             else
                 return true;

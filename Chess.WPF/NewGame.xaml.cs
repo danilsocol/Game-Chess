@@ -12,6 +12,10 @@ namespace Chess.WPF
 
         private static ModelBoard board { get; } = new ModelBoard();
         public static Button[,] butts { get; } = new Button[9, 9];
+        public static Button prevButton { get; set; }
+        public static bool colorCellGray { get; set; }
+        public static bool isMoving { get; set; } = false;
+        public static bool thereIsMove { get; set; } = false;
 
         public NewGame()
         {
@@ -68,19 +72,13 @@ namespace Chess.WPF
             }
         }
 
-        public static Button prevButton { get; set; }
-        public static bool colorCellGray { get; set; }
-        public static bool isMoving { get; set; } = false;
-        public static bool MovePlayerOne { get; set; } = true;
-        public static bool thereIsMove { get; set; }
-
         private void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
             tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.Score);
 
-            if (!isMoving && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)) && pressedButton.Content != null)
+            if (!isMoving && ((pressedButton.Foreground == Brushes.Red) == (board.MovePlayerOne)) && pressedButton.Content != null)
             {
                 pressedButton.IsEnabled = false;
 
@@ -108,16 +106,16 @@ namespace Chess.WPF
                 FunctionBoard.DeactivateAllButtons();
                 FunctionBoard.CloseSteps();
 
-                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)))// подумать до следующих комм
+                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (board.MovePlayerOne)))
                 {
                     isMoving = true;
-                    GameActions.SetFigure(pressedButton);
+                    GameActions.PaintCorrectMove(pressedButton, board);
                 }
             }
             else if (isMoving)
             {
-                thereIsMove = false;
-                GameActions.MakeMove(pressedButton);
+                isMoving = false;
+                GameActions.MakeMove(pressedButton, board);
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();
                 FunctionBoard.SaveField($"{ tbPlayer1Name.Text} { tbPlayer1Score.Text} { tbPlayer2Name.Text} { tbPlayer2Score.Text}");
@@ -129,19 +127,19 @@ namespace Chess.WPF
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
             tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.Score);
 
-            if (MovePlayerOne == true)
+            if (board.MovePlayerOne == true)
             {
                 tbPlayer2Name.Foreground = Brushes.Black;
                 tbPlayer1Name.Foreground = Brushes.Red;
 
-                MovePlayerOne = false;
+                board.MovePlayerOne = false;
             }
             else
             {
                 tbPlayer2Name.Foreground = Brushes.Red;
                 tbPlayer1Name.Foreground = Brushes.Black;
 
-                MovePlayerOne = true;
+                board.MovePlayerOne = true;
             }
         }
 
