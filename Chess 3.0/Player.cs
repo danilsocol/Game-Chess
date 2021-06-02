@@ -8,8 +8,6 @@ namespace Chess_3._0
     {
         public string Name { get; set; }
         public int Score { get; set; } = 0;
-
-
         public Player(string name)
         {
             Name = name;
@@ -40,6 +38,5 @@ namespace Chess_3._0
                     break;
             }
         }
-
     }
 }

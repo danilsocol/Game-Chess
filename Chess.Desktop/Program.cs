@@ -28,15 +28,12 @@ namespace Chess_3._0
                             break;
 
                         case 2:
-
                             break;
 
                         case 3:
-
                             break;
 
                         case 4:
-
                             break;
                     }
                     break;

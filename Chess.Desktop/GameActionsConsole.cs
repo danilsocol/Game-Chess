@@ -7,9 +7,7 @@ namespace Chess.Desktop
 {
     class GameActionsConsole
     {
-
         private static ModelBoard board { get; } = new ModelBoard();
-
         private static int[] selectCell = { 0, 0 };
         private static int[] pastSelectCell = { 0, 0 };
         private static string[] movementOfTheFigures = new string[2];
@@ -40,7 +38,6 @@ namespace Chess.Desktop
                 
             }
         }
-
         public static void MakeMove(string[] move, Cell[,] cell)
         {
             string start = move[0];
@@ -115,44 +112,8 @@ namespace Chess.Desktop
                 }
                     
             }
-
-
             return false;
         }
-
-        //public static bool IsKnightCorrect(string start, string end)
-        //{
-        //    int dx = Math.Abs(end[0] - start[0]);
-        //    int dy = Math.Abs(end[1] - start[1]);
-
-        //    return dx + dy == 3 && dx * dy == 2;
-        //}
-
-        //public static bool IsPawnCorrect(string start, string end)
-        //{
-        //    return (end[0] - start[0] == 0 && end[1] - start[1] == 1);
-        //}
-
-        //public static bool IsRookCorrect(string start, string end)
-        //{
-        //    return (end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
-        //}
-
-        //public static bool IsBishopCorrect(string start, string end)
-        //{
-        //    return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]));
-        //}
-
-        //public static bool IsQueenCorrect(string start, string end)
-        //{
-        //    return (Math.Abs(start[0] - end[0]) == Math.Abs(start[1] - end[1]) || end[0] == start[0] && end[1] != start[1] || end[0] != start[0] && end[1] == start[1]);
-        //}
-
-        //public static bool IsKingCorrect(string start, string end)
-        //{
-        //    return (Math.Abs(start[0] - end[0]) <= 1 && Math.Abs(start[1] - end[1]) <= 1);
-        //}
-
         public static bool RecognitionFigureInCell(Cell[,] cell, string start)
         {
             if ((cell[start[0] - 48, start[1] - 48]).Role == Roles.V || (cell[start[0] - 48, start[1] - 48].Color == Colors.White) != board.MovePlayerOne)
