@@ -13,7 +13,7 @@ namespace Chess.WPF
     {
         public static void MakeMove(Button pressedButton, ModelBoard board)
         {
-            if (NewGame.MovePlayerOne == true)
+            if (board.MovePlayerOne == true)
             {
                 ModelBoard.PlayerTwo.AddPoints((string)pressedButton.Content);
             }
@@ -30,7 +30,7 @@ namespace Chess.WPF
             pressedButton.Foreground = NewGame.prevButton.Foreground;
             NewGame.prevButton.Content = null;
             NewGame.prevButton.Foreground = Brushes.Black;
-            board.MovePlayerOne = !board.MovePlayerOne;
+        //    board.MovePlayerOne = !board.MovePlayerOne;
 
             if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
@@ -48,7 +48,7 @@ namespace Chess.WPF
             int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
             int dir;
 
-            if (NewGame.MovePlayerOne == true)
+            if (board.MovePlayerOne == true)
                 dir = -1;
             else
                 dir = 1;
