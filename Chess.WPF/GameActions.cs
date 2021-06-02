@@ -22,10 +22,15 @@ namespace Chess.WPF
                 ModelBoard.PlayerOne.AddPoints((string)pressedButton.Content);
             }
 
+            board.cell[pressedButton.Name[1]-49, pressedButton.Name[3] - 49].Color = board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Color;
+            board.cell[pressedButton.Name[1] - 49, pressedButton.Name[3] - 49].Role = board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Role;
+            board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Role = Roles.V;
+            board.cell[NewGame.prevButton.Name[1] - 49, NewGame.prevButton.Name[3] - 49].Color = Chess_3._0.Colors.V;
             pressedButton.Content = NewGame.prevButton.Content;
             pressedButton.Foreground = NewGame.prevButton.Foreground;
             NewGame.prevButton.Content = null;
             NewGame.prevButton.Foreground = Brushes.Black;
+            board.MovePlayerOne = !board.MovePlayerOne;
 
             if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
@@ -51,33 +56,38 @@ namespace Chess.WPF
             switch (pressedButton.Content)
             {
                 case "P":
-                    AvailableMoves.ShowMovePawn(j, i, dir);
+                    CorrectMoves.ShowMovePawn(i, j, dir, board, listCorrectMove);
                     break;
 
                 case "R":
-                    AvailableMoves.ShowVerticalHorizontal(j, i);
+                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
                     break;
 
                 case "B":
-                    AvailableMoves.ShowDiagonal(j, i);
+                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
                     break;
 
                 case "H":
-                    CorrectMoves.ShowHorseSteps(j - 1, i + 1, board, listCorrectMove);
-                 //   AvailableMoves.ShowHorseSteps(j, i);
+                    CorrectMoves.ShowHorseSteps(i , j, board, listCorrectMove);
                     break;
 
                 case "Q":
-                    AvailableMoves.ShowVerticalHorizontal(j, i);
-                    AvailableMoves.ShowDiagonal(j, i);
+                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
+                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
                     break;
 
                 case "K":
-                    AvailableMoves.ShowVerticalHorizontal(j, i, true);
-                    AvailableMoves.ShowDiagonal(j, i, true);
+                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
+                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove, true);
                     break;
 
 
+            }
+            for (int k = 0; k < listCorrectMove.Count; k++)
+            {
+                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].Background = Brushes.Yellow;
+                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].IsEnabled = true;
+                NewGame.thereIsMove = true;
             }
             if (!NewGame.thereIsMove)
             {
@@ -86,12 +96,7 @@ namespace Chess.WPF
                 NewGame.isMoving = false;
             }
 
-            for (int k = 0; k < listCorrectMove.Count; k++)
-            {
-                NewGame.butts[listCorrectMove[k][1]-47,listCorrectMove[k][0]-47].Background = Brushes.Yellow;
-                NewGame.butts[listCorrectMove[k][1]-47, listCorrectMove[k][0]-47].IsEnabled = true;
-                NewGame.thereIsMove = true;
-            }
+            
         }
 
     }

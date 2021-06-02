@@ -108,7 +108,7 @@ namespace Chess.WPF
                 FunctionBoard.DeactivateAllButtons();
                 FunctionBoard.CloseSteps();
 
-                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)))// подумать до следующих комм
+                if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (MovePlayerOne)))
                 {
                     isMoving = true;
                     GameActions.SetFigure(pressedButton, board);

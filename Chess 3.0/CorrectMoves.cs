@@ -30,7 +30,7 @@ namespace Chess_3._0
 
             if (InsideBorder(j+1, i + 1 * dir))
             {
-                if (board.cell[j , i + 1 * dir-1].Role != Roles.V && ((board.cell[j, i + 1 * dir - 1].Color == Colors.Black) != board.MovePlayerOne))
+                if (board.cell[j , i + 1 * dir-1].Role != Roles.V && ((board.cell[j, i + 1 * dir - 1].Color == Colors.White) != board.MovePlayerOne))
                 {
                     CorrectMove.Add($"{j }{ i + 1 * dir - 1}");
                     //NewGame.butts[j + 1 * dir, i + 1].Background = Brushes.Yellow;
@@ -41,7 +41,7 @@ namespace Chess_3._0
 
             if (InsideBorder(j -1, i + 1 * dir))
             {
-                if (board.cell[j - 2, i + 1 * dir-1].Role != Roles.V && ((board.cell[j - 2, i + 1 * dir - 1].Color == Colors.Black) != board.MovePlayerOne))
+                if (board.cell[j - 2, i + 1 * dir-1].Role != Roles.V && ((board.cell[j - 2, i + 1 * dir - 1].Color == Colors.White) != board.MovePlayerOne))
                 {
                     CorrectMove.Add($"{j - 2}{i + 1 * dir - 1}");
                     //NewGame.butts[j + 1 * dir, i - 1].Background = Brushes.Yellow;
@@ -200,9 +200,32 @@ namespace Chess_3._0
 
             
             }
-        public static bool DeterminePathL(int j, int i, ModelBoard board,List<string> CorrectMove)
+        //public static bool DeterminePathL(int j, int i, ModelBoard board,List<string> CorrectMove)
+        //{
+        //    if (board.cell[j - 1, i - 1].Role == Roles.V && ((board.cell[j - 1, i - 1].Color == Colors.Black) != board.MovePlayerOne))
+        //    {
+        //        CorrectMove.Add($"{j - 1}{i - 1}");
+        //        //NewGame.butts[j, i].Background = Brushes.Yellow;
+        //        //NewGame.butts[j, i].IsEnabled = true;
+        //        //NewGame.thereIsMove = true;
+        //    }
+        //    else
+        //    {
+        //        if ((board.cell[j-1, i-1].Color == Colors.Black) == board.MovePlayerOne)
+        //        {
+        //            CorrectMove.Add($"{j - 1}{i - 1}");
+        //            //NewGame.butts[j, i].Background = Brushes.Yellow;
+        //            //NewGame.butts[j, i].IsEnabled = true;
+        //            //NewGame.thereIsMove = true;
+        //        }
+        //        return false;
+        //    }
+        //    return true;
+        //}
+
+        public static bool DeterminePathL(int j, int i, ModelBoard board, List<string> CorrectMove)
         {
-            if (board.cell[j - 1, i - 1].Role == Roles.V && ((board.cell[j - 1, i - 1].Color == Colors.Black) != board.MovePlayerOne))
+            if (board.cell[j - 1, i - 1].Role == Roles.V )
             {
                 CorrectMove.Add($"{j - 1}{i - 1}");
                 //NewGame.butts[j, i].Background = Brushes.Yellow;
@@ -211,12 +234,13 @@ namespace Chess_3._0
             }
             else
             {
-                //if ((board.cell[j, i].Color == Colors.Black) != NewGame.MovePlayerOne)
-                //{
-                //    NewGame.butts[j, i].Background = Brushes.Yellow;
-                //    NewGame.butts[j, i].IsEnabled = true;
-                //    NewGame.thereIsMove = true;
-                //}
+                if ((board.cell[j - 1, i - 1].Color == Colors.White) != board.MovePlayerOne)
+                {
+                    CorrectMove.Add($"{j - 1}{i - 1}");
+                    //NewGame.butts[j, i].Background = Brushes.Yellow;
+                    //NewGame.butts[j, i].IsEnabled = true;
+                    //NewGame.thereIsMove = true;
+                }
                 return false;
             }
             return true;
