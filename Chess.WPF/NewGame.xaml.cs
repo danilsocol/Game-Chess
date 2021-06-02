@@ -14,6 +14,8 @@ namespace Chess.WPF
         public static Button[,] butts { get; } = new Button[9, 9];
         public static Button prevButton { get; set; }
         public static bool colorCellGray { get; set; }
+        public static bool isMoving { get; set; } = false;
+        public static bool thereIsMove { get; set; } = false;
 
         public NewGame()
         {
@@ -70,11 +72,6 @@ namespace Chess.WPF
             }
         }
 
-       
-        public static bool isMoving { get; set; } = false;
-        //public static bool MovePlayerOne { get; set; } = true;
-        public static bool thereIsMove { get; set; }
-
         private void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
         {
             Button pressedButton = sender as Button;
@@ -112,12 +109,12 @@ namespace Chess.WPF
                 if (pressedButton.Content != null && ((pressedButton.Foreground == Brushes.Red) == (board.MovePlayerOne)))
                 {
                     isMoving = true;
-                    GameActions.SetFigure(pressedButton, board);
+                    GameActions.PaintCorrectMove(pressedButton, board);
                 }
             }
             else if (isMoving)
             {
-                thereIsMove = false;
+                isMoving = false;
                 GameActions.MakeMove(pressedButton, board);
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();

@@ -40,49 +40,51 @@ namespace Chess.WPF
             NewGame.prevButton = null;
             NewGame.isMoving = false;
         }
-        public static void SetFigure(Button pressedButton, ModelBoard board)
+        public static void PaintCorrectMove(Button pressedButton, ModelBoard board)
         {
             List<string> listCorrectMove = new List<string>();
 
             int i = int.Parse(Convert.ToString(pressedButton.Name[1]));
             int j = int.Parse(Convert.ToString(pressedButton.Name[3]));
-            int dir;
-
-            if (board.MovePlayerOne == true)
-                dir = -1;
-            else
-                dir = 1;
-
-            switch (pressedButton.Content)
-            {
-                case "P":
-                    CorrectMoves.ShowMovePawn(i, j, dir, board, listCorrectMove);
-                    break;
-
-                case "R":
-                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
-                    break;
-
-                case "B":
-                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
-                    break;
-
-                case "H":
-                    CorrectMoves.ShowHorseSteps(i , j, board, listCorrectMove);
-                    break;
-
-                case "Q":
-                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
-                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
-                    break;
-
-                case "K":
-                    CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
-                    CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove, true);
-                    break;
 
 
-            }
+            CorrectMoves.SetFigure(i, j, board, listCorrectMove, Convert.ToString(pressedButton.Content));
+
+            //if (board.MovePlayerOne == true)
+            //    dir = -1;
+            //else
+            //    dir = 1;
+
+            //switch (pressedButton.Content)
+            //{
+            //    case "P":
+            //        CorrectMoves.ShowMovePawn(i, j, dir, board, listCorrectMove);
+            //        break;
+
+            //    case "R":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "B":
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "H":
+            //        CorrectMoves.ShowHorseSteps(i , j, board, listCorrectMove);
+            //        break;
+
+            //    case "Q":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove);
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove);
+            //        break;
+
+            //    case "K":
+            //        CorrectMoves.ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
+            //        CorrectMoves.ShowDiagonal(i, j, board, listCorrectMove, true);
+            //        break;
+
+
+            //}
             for (int k = 0; k < listCorrectMove.Count; k++)
             {
                 NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].Background = Brushes.Yellow;

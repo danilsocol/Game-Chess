@@ -1,11 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Chess_3._0
 {
     public class CorrectMoves
     {
+        public static void SetFigure(int i, int j,ModelBoard board,List<string> listCorrectMove, string pressedButton)
+        {
+            int dir;
+
+            if (board.MovePlayerOne == true)
+                dir = -1;
+            else
+                dir = 1;
+
+            switch (pressedButton)
+            {
+                case "P":
+                    ShowMovePawn(i, j, dir, board, listCorrectMove);
+                    break;
+
+                case "R":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove);
+                    break;
+
+                case "B":
+                    ShowDiagonal(i, j, board, listCorrectMove);
+                    break;
+
+                case "H":
+                    ShowHorseSteps(i, j, board, listCorrectMove);
+                    break;
+
+                case "Q":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove);
+                    ShowDiagonal(i, j, board, listCorrectMove);
+                    break;
+
+                case "K":
+                    ShowVerticalHorizontal(i, j, board, listCorrectMove, true);
+                    ShowDiagonal(i, j, board, listCorrectMove, true);
+                    break;
+
+
+            }
+        }
+
         public static bool InsideBorder(int j, int i)
         {
             if (i >= 9 || j >= 9 || i < 1 || j < 1)
