@@ -8,9 +8,9 @@ namespace Chess.Desktop
     class GameActionsConsole
     {
         private static ModelBoard board { get; } = new ModelBoard();
-        private static int[] selectCell = { 0, 0 };
-        private static int[] pastSelectCell = { 0, 0 };
-        private static string[] movementOfTheFigures = new string[2];
+        private static int[] selectCell { get; } = { 0, 0 };
+        private static int[] pastSelectCell { get; } = { 0, 0 };
+        private static string[] movementOfTheFigures { get; } = new string[2];
 
         public static void CreateUser(Player player)
         {
@@ -21,7 +21,7 @@ namespace Chess.Desktop
 
             } while (player.Name.Length == 0);
         }
-        public static void GameActions()
+        public static void Action()
         {
 
             board.PlacementOfFigureNewGame();
@@ -38,7 +38,7 @@ namespace Chess.Desktop
                 
             }
         }
-        public static void MakeMove(string[] move, Cell[,] cell)
+        private static void MakeMove(string[] move, Cell[,] cell)
         {
             string start = move[0];
 
@@ -97,7 +97,7 @@ namespace Chess.Desktop
             }
         }
 
-        public static bool CheckCorrectOfTheMove(ModelBoard board, string start, string end)
+        private static bool CheckCorrectOfTheMove(ModelBoard board, string start, string end)
         {
             List<string> listCorrectMove = new List<string>();
 
@@ -114,7 +114,7 @@ namespace Chess.Desktop
             }
             return false;
         }
-        public static bool RecognitionFigureInCell(Cell[,] cell, string start)
+        private static bool RecognitionFigureInCell(Cell[,] cell, string start)
         {
             if ((cell[start[0] - 48, start[1] - 48]).Role == Roles.V || (cell[start[0] - 48, start[1] - 48].Color == Colors.White) != board.MovePlayerOne)
                 return false;

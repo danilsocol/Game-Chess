@@ -30,7 +30,6 @@ namespace Chess.WPF
             pressedButton.Foreground = NewGame.prevButton.Foreground;
             NewGame.prevButton.Content = null;
             NewGame.prevButton.Foreground = Brushes.Black;
-        //    board.MovePlayerOne = !board.MovePlayerOne;
 
             if (NewGame.colorCellGray)
                 NewGame.prevButton.Background = Brushes.Gray;
@@ -51,8 +50,8 @@ namespace Chess.WPF
 
             for (int k = 0; k < listCorrectMove.Count; k++)
             {
-                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].Background = Brushes.Yellow;
-                NewGame.butts[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].IsEnabled = true;
+                NewGame.buttsBoard[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].Background = Brushes.Yellow;
+                NewGame.buttsBoard[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].IsEnabled = true;
                 NewGame.thereIsMove = true;
             }
             if (!NewGame.thereIsMove)
@@ -61,9 +60,6 @@ namespace Chess.WPF
                 FunctionBoard.CloseSteps();
                 NewGame.isMoving = false;
             }
-
-            
         }
-
     }
 }

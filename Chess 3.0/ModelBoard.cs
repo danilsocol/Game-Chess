@@ -62,8 +62,8 @@ namespace Chess_3._0
         {
             string[] namesAndScore = (File.ReadAllText("Save\\SavePlayer.txt")).Split(' ');
 
-            ModelBoard.PlayerOne = new Player(namesAndScore[0]);
-            ModelBoard.PlayerTwo = new Player(namesAndScore[2]);
+            PlayerOne = new Player(namesAndScore[0]);
+            PlayerTwo = new Player(namesAndScore[2]);
             PlayerOne.Score = Convert.ToInt32(namesAndScore[1]);
             PlayerTwo.Score = Convert.ToInt32(namesAndScore[3]);
         }

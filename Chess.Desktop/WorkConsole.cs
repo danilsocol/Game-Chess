@@ -30,7 +30,7 @@ namespace Chess.Desktop
             ReadFream(" Выход      ", menuSelect, menuCounter);
             Console.WriteLine("");
         }
-        public static void ReadFream(string text, int menuSelect, int menuCounter)
+        private static void ReadFream(string text, int menuSelect, int menuCounter)
         {
             int numSpace = 50;
 
@@ -48,7 +48,7 @@ namespace Chess.Desktop
             DrawCell('╚', line, '╝');
         }
 
-        public static void DrawCell(char oneChar, string text, char twoChar)
+        private static void DrawCell(char oneChar, string text, char twoChar)
         {
             Console.Write(oneChar);
             Console.Write(text);
@@ -56,7 +56,7 @@ namespace Chess.Desktop
 
             Console.ResetColor();
         }
-        public static void CreateSpace(int numSpace, int menuSelect, int menuCounter)
+        private static void CreateSpace(int numSpace, int menuSelect, int menuCounter)
         {
             for (int i = 0; i < numSpace; i++)
                 Console.Write(" ");
@@ -108,7 +108,7 @@ namespace Chess.Desktop
             WriteFieldLine("└", "─", "┴", "┘", 8);
 
         }
-        static void WriteFieldLine(string char1, string char2, string char3, string char4, int num)
+        private static void WriteFieldLine(string char1, string char2, string char3, string char4, int num)
         {
             Console.Write(char1 + char2 + char2 + char2);
 

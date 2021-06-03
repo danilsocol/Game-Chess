@@ -51,7 +51,7 @@ namespace Chess_3._0
             return true;
         }
 
-        public static void ShowMovePawn(int j, int i, int dir, ModelBoard board, List<string> CorrectMove)
+        private static void ShowMovePawn(int j, int i, int dir, ModelBoard board, List<string> CorrectMove)
         {
 
             if (InsideBorder(j , i + 1 * dir))
@@ -79,7 +79,7 @@ namespace Chess_3._0
             }
         }
 
-        public static void ShowHorseSteps(int j, int i, ModelBoard board, List<string> CorrectMove)
+        private static void ShowHorseSteps(int j, int i, ModelBoard board, List<string> CorrectMove)
         {
             if (InsideBorder(j - 2, i + 1))
             {
@@ -115,7 +115,7 @@ namespace Chess_3._0
             }
         }
 
-        public static void ShowDiagonal(int J, int I, ModelBoard board, List<string> CorrectMove, bool isOneStep = false)
+        private static void ShowDiagonal(int J, int I, ModelBoard board, List<string> CorrectMove, bool isOneStep = false)
         {
             int j = I + 1;
             for (int i = J - 1; i >= 1; i--)
@@ -181,7 +181,7 @@ namespace Chess_3._0
                     break;
             }
         }
-        public static void ShowVerticalHorizontal(int J, int I,  ModelBoard board, List<string> CorrectMove, bool isOneStep = false)
+        private static void ShowVerticalHorizontal(int J, int I,  ModelBoard board, List<string> CorrectMove, bool isOneStep = false)
         {
             
             for (int i = J + 1; i < 9; i++)
@@ -226,7 +226,7 @@ namespace Chess_3._0
             }
         }
 
-        public static bool DeterminePathL(int j, int i, ModelBoard board, List<string> CorrectMove)
+        private static bool DeterminePathL(int j, int i, ModelBoard board, List<string> CorrectMove)
         {
             if (board.cell[j - 1, i - 1].Role == Roles.V )
             {

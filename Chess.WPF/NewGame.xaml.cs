@@ -11,7 +11,7 @@ namespace Chess.WPF
     {
 
         private static ModelBoard board { get; } = new ModelBoard();
-        public static Button[,] butts { get; } = new Button[9, 9];
+        public static Button[,] buttsBoard { get; } = new Button[9, 9];
         public static Button prevButton { get; set; }
         public static bool colorCellGray { get; set; }
         public static bool isMoving { get; set; } = false;
@@ -37,7 +37,6 @@ namespace Chess.WPF
                 board.PlacementOfFigureContinue();
             }
 
-
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
             tbPlayer2Score.Text = Convert.ToString(ModelBoard.PlayerTwo.Score);
             tbPlayer1Name.Text = ModelBoard.PlayerOne.Name;
@@ -51,7 +50,7 @@ namespace Chess.WPF
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    butts[i , j] = new Button();
+                    buttsBoard[i , j] = new Button();
 
 
                     IDrawer field = new IDrawer(i, j);
@@ -66,13 +65,13 @@ namespace Chess.WPF
                         field.OutputCellRamk(canvas);
                     }
 
-                    butts[i , j ] = field.cell;
-                    butts[i, j].Click += new RoutedEventHandler(OnFigurePress);
+                    buttsBoard[i , j ] = field.cell;
+                    buttsBoard[i, j].Click += new RoutedEventHandler(OnFigurePress);
                 }
             }
         }
 
-        private void OnFigurePress(object sender, RoutedEventArgs e) // сделать ход
+        private void OnFigurePress(object sender, RoutedEventArgs e) 
         {
             Button pressedButton = sender as Button;
             tbPlayer1Score.Text = Convert.ToString(ModelBoard.PlayerOne.Score);
@@ -100,7 +99,6 @@ namespace Chess.WPF
                 {
                     colorCellGray = false;
                 }
-
 
                 pressedButton.Background = Brushes.Green;
                 FunctionBoard.DeactivateAllButtons();

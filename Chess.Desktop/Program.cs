@@ -12,7 +12,7 @@ namespace Chess_3._0
             WorkConsole.ReadMenu(menuSelect);
             Selection(menuSelect);
         }
-        static void Selection(int selectCell)
+        private static void Selection(int selectCell)
         {
             while (true)
             {
@@ -24,7 +24,7 @@ namespace Chess_3._0
                     switch (selectCell)
                     {
                         case 1:
-                            GameActionsConsole.GameActions();
+                            GameActionsConsole.Action();
                             break;
 
                         case 2:

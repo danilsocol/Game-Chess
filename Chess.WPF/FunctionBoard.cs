@@ -15,20 +15,19 @@ namespace Chess.WPF
                 for (int j = 1; j < 9; j++)
                 {
                     if ((i + j) % 2 == 1)
-                        NewGame.butts[i, j].Background = Brushes.Gray;
+                        NewGame.buttsBoard[i, j].Background = Brushes.Gray;
                     else
-                        NewGame.butts[i, j].Background = Brushes.White;
+                        NewGame.buttsBoard[i, j].Background = Brushes.White;
                 }
             }
         }
-
         public static void DeactivateAllButtons()
         {
             for (int i = 1; i < 9; i++)
             {
                 for (int j = 1; j < 9; j++)
                 {
-                    NewGame.butts[i, j].IsEnabled = false;
+                    NewGame.buttsBoard[i, j].IsEnabled = false;
                 }
             }
         }
@@ -39,7 +38,7 @@ namespace Chess.WPF
             {
                 for (int j = 1; j < 9; j++)
                 {
-                    NewGame.butts[i, j].IsEnabled = true;
+                    NewGame.buttsBoard[i, j].IsEnabled = true;
                 }
             }
         }
@@ -52,14 +51,14 @@ namespace Chess.WPF
             {
                 for (int j = 1; j < 9; j++)
                 {
-                    if (NewGame.butts[i, j].Content != null)
-                        cellInFile[i - 1] += Convert.ToString(NewGame.butts[i, j].Content);
+                    if (NewGame.buttsBoard[i, j].Content != null)
+                        cellInFile[i - 1] += Convert.ToString(NewGame.buttsBoard[i, j].Content);
                     else
                         cellInFile[i - 1] += "VV ";
 
-                    if (NewGame.butts[i, j].Foreground == Brushes.Red)
+                    if (NewGame.buttsBoard[i, j].Foreground == Brushes.Red)
                         cellInFile[i - 1] += "R ";
-                    else if (NewGame.butts[i, j].Foreground == Brushes.Blue)
+                    else if (NewGame.buttsBoard[i, j].Foreground == Brushes.Blue)
                         cellInFile[i - 1] += "B ";
 
                 }
