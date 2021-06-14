@@ -54,12 +54,13 @@ namespace Chess.WPF
                 NewGame.buttsBoard[listCorrectMove[k][1] - 47, listCorrectMove[k][0] - 47].IsEnabled = true;
                 NewGame.thereIsMove = true;
             }
-            if (!NewGame.thereIsMove)
+            if (listCorrectMove.Count == 0)
             {
                 FunctionBoard.ActivateAllButtons();
                 FunctionBoard.CloseSteps();
                 NewGame.isMoving = false;
             }
+
         }
     }
 }
